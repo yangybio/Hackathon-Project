@@ -1,6 +1,9 @@
 package ui;
 
 
+import model.Item;
+import model.MoneySpent;
+
 import java.util.Scanner;
 
 
@@ -13,17 +16,18 @@ public class LogginFunction {
         MoneySpent m = new MoneySpent();
         while (true) {
             System.out.println("Please select the function");
-            System.out.println("(1 for Login money you spend; 2 for Sum of money you speed; 3 for quit):");
+            System.out.println("(1 for Expense Management; 2 for Overview;  3 for quit):");
             function = scanner.nextLine();
+            Item newItem = new Item();
             if (function.equals("3")) {
                 break;
             }
             if (function.equals("1")) {
-                System.out.println("You selected to login money you spent today");
-                processMoney(m);
+                System.out.println("You selected to Manage your expense");
+                m.processMoney(newItem);
             } else {
                 System.out.println("You selected to review the money spent today");
-                presentmoney(m);
+                m.presentMoney();
             }
         }
     }
@@ -33,15 +37,6 @@ public class LogginFunction {
 //        processMoney();
 //    }
 
-    private void processMoney(MoneySpent m) {
-        System.out.println("Please enter the money you spent today:");
-        m.setMoney(m.getMoney() + Double.parseDouble(scanner.nextLine()));
-    }
-
-
-    private void presentmoney(MoneySpent m) {
-        System.out.println("You spent " + m.getMoney() + " today.");
-    }
 
     public static void main(String[] args) {
         new LogginFunction();
