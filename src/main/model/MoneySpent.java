@@ -51,8 +51,12 @@ public class MoneySpent {
     }
 
     public void presentSummary() {
-        summary.presentItem();
+        for (Item i : summary.getItemList()) {
+            System.out.println("Date: " + i.getDate());
+            System.out.println("Item: " + i.getItemName());
+            System.out.println("Money: " + i.getRecordMoney());
+            System.out.println("----------------------------");
+        }
     }
-
-
 }
+
