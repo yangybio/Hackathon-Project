@@ -1,4 +1,7 @@
-package model;
+package ui;
+
+import model.Item;
+import model.ItemList;
 
 import java.util.Scanner;
 
@@ -40,6 +43,7 @@ public class MoneySpent {
         money = money + newItem.getRecordMoney();
     }
 
+    //EFFECT: Present the total money spent and summary of recorded items
     public void presentMoney() {
         presentTotalMoney();
         presentSummary();
@@ -50,6 +54,7 @@ public class MoneySpent {
         System.out.println("You spent " + money + " totally.");
     }
 
+    //EFFECT: Print out the summary of recorded items (money, data and name)
     public void presentSummary() {
         for (Item i : summary.getItemList()) {
             System.out.println("Date: " + i.getDate());

@@ -1,0 +1,5 @@
+package modelTest;
+
+class MainTest {
+
+}

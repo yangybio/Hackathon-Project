@@ -12,12 +12,17 @@ public class ItemList {
         itemSummary = new ArrayList<>();
     }
 
+    public int size() {
+        return itemSummary.size();
+    }
+
     //MODIFIES:This
-    //EFFECT: add the new item to itemlist
+    //EFFECT: add the new item to itemList
     public void insert(Item newItem) {
         itemSummary.add(newItem);
     }
 
+    //EFFECT: Return the itemSummary of the item list
     public List<Item> getItemList() {
         return itemSummary;
     }

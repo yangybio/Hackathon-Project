@@ -2,7 +2,6 @@ package ui;
 
 
 import model.Item;
-import model.MoneySpent;
 
 import java.util.Scanner;
 
@@ -30,16 +29,6 @@ public class LogginFunction {
                 m.presentMoney();
             }
         }
-    }
-
-//    private void LogginCost() {
-//        scanner = new Scanner(System.in);
-//        processMoney();
-//    }
-
-
-    public static void main(String[] args) {
-        new LogginFunction();
     }
 }
 
