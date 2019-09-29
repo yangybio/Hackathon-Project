@@ -3,18 +3,25 @@ package ui;
 import model.Item;
 import model.ItemList;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-public class MoneySpent {
+public class RecordMoney {
     private double money;
     public Scanner scanner = new Scanner(System.in);
     private ItemList summary;
 
     //MODIFIES:This
     //EFFECT: Initialize the Money
-    public MoneySpent() {
-        money = 0.0;
+    public RecordMoney() throws IOException {
         summary = new ItemList();
+        summary.getData();
+        money = 0.0;
+        for (Item i : summary.getItemList()) {
+            setMoney(i);
+        }
     }
 
     //EFFECT: return the money
@@ -30,9 +37,8 @@ public class MoneySpent {
 
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
-    public void processMoney(Item newItem) {
-        System.out.println("Please enter the date you spent the money(mm/dd):");
-        newItem.setDate(scanner.nextLine());
+    public void processMoney(Item newItem) throws IOException {
+        enterDate(newItem);
         System.out.println("Please enter the money you spent at " + newItem.getDate());
         newItem.setRecordMoney(Double.parseDouble(scanner.nextLine()));
         System.out.println("Please enter what your money spent for:");
@@ -40,7 +46,18 @@ public class MoneySpent {
         System.out.println("You spent " + newItem.getRecordMoney() + " at " + newItem.getDate());
         System.out.println("for " + newItem.getItemName());
         summary.insert(newItem);
-        money = money + newItem.getRecordMoney();
+        summary.record();
+        setMoney(newItem);
+    }
+
+    public void enterDate(Item newItem) {
+        System.out.println("Please enter the date you spent the money(mmdd):");
+//        String time = scanner.nextLine();
+//        int month = Integer.parseInt(time.substring(0, 2));
+//        int day = Integer.parseInt(time.substring(2));
+//        if (1<=month<=12 && <=day<=)
+        newItem.setDate(scanner.nextLine());
+
     }
 
     //EFFECT: Present the total money spent and summary of recorded items

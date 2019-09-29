@@ -1,6 +1,6 @@
 package model;
 
-public class Item {
+public class Item implements Category {
     private String date;
     private String itemName;
     private double recordMoney;
@@ -47,4 +47,8 @@ public class Item {
         this.recordMoney = recordNumber;
     }
 
+    public String itemToString() {
+        String recordString = date + " " + itemName + " " + Double.toString(recordMoney);
+        return recordString;
+    }
 }
