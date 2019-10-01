@@ -5,6 +5,9 @@ import model.ItemList;
 import model.Money;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class RecordMoney implements Money {
@@ -50,28 +53,28 @@ public class RecordMoney implements Money {
     }
 
     public void enterDate(Item newItem) {
-        System.out.println("Please enter the date you spent the money(mmdd):");
+        System.out.println("Please enter the date you spent the money(mm-dd):");
         String time = scanner.nextLine();
-        while (true) {
-            if (checkValidDate(time)) {
-                newItem.setDate(time);
-                break;
-            } else {
-                time = scanner.nextLine();
-            }
+        Date d = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+        try {
+            d = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        newItem.setDate(sdf.format(d));
     }
 
-    public Boolean checkValidDate(String time) {
-        int month = Integer.parseInt(time.substring(0, 2));
-        int day = Integer.parseInt(time.substring(2));
-        if ((1 <= month && month <= 12) && (1 <= day && day <= 31)) {
-            return true;
-        } else {
-            System.out.println("Please enter a valid date.");
-            return false;
-        }
-    }
+//    public Boolean checkValidDate(String time) {
+//        int month = Integer.parseInt(time.substring(0, 2));
+//        int day = Integer.parseInt(time.substring(2));
+//        if ((1 <= month && month <= 12) && (1 <= day && day <= 31)) {
+//            return true;
+//        } else {
+//            System.out.println("Please enter a valid date.");
+//            return false;
+//        }
+//    }
 
     //EFFECT: Present the total money spent and summary of recorded items
     public void presentMoney() {
