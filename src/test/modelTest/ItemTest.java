@@ -37,13 +37,13 @@ public class ItemTest {
 
     @Test
     public void testGetRecordMoney(){
-        assertEquals(0.0,testItem.getRecordMoney());
+        assertEquals(0.0,testItem.getMoney());
     }
 
     @Test
     public void testSetRecordMoney(){
-        testItem.setRecordMoney(9.8);
-        assertEquals(9.8,testItem.getRecordMoney());
+        testItem.setMoney(9.8);
+        assertEquals(9.8,testItem.getMoney());
     }
 
 }

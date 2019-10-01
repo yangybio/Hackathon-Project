@@ -5,6 +5,8 @@ import model.ItemList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ItemListTest {
@@ -37,5 +39,18 @@ public class ItemListTest {
     public void testGetItemList() {
         ItemList newItemList = new ItemList();
         assertEquals(newItemList.getItemList(), testList.getItemList());
+    }
+
+    @Test
+    public void testRecordNGetData() throws IOException {
+        Item newItem = new Item();
+        testList.insert(newItem);
+        testList.record("testFile.txt");
+        ItemList newItemList = new ItemList();
+        newItemList.getData("testFile.txt");
+        Item testItem = (newItemList.getItemList()).get(0);
+        assertEquals(newItem.getDate(), testItem.getDate());
+        assertEquals(newItem.getItemName(), testItem.getItemName());
+        assertEquals(newItem.getMoney(), testItem.getMoney());
     }
 }

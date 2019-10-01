@@ -6,28 +6,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class ItemList implements NewList, RecordThings {
+public class ItemList implements NewList, RecordThings,ReloadThings {
     private List<Item> itemSummary;
-    private double money;
 
     //MODIFIES:This
     //EFFECT: Initialize the ItemList
     public ItemList() {
         itemSummary = new ArrayList<>();
-        money = 0.0;
-    }
-
-    //EFFECT: return the money
-    public double getTotalMoney() {
-        return money;
-    }
-
-    public void setTotalMoney(double addMoney) {
-        money = money + addMoney;
     }
 
     @Override
@@ -49,9 +36,9 @@ public class ItemList implements NewList, RecordThings {
 
 
     @Override
-    public void record() throws IOException {
+    public void record(String file) throws IOException {
         List<String> lines = new ArrayList<>();
-        PrintWriter writer = new PrintWriter("savedFile.txt", "UTF-8");
+        PrintWriter writer = new PrintWriter(file, "UTF-8");
         for (Item i : itemSummary) {
             lines.add(i.itemToString());
         }
@@ -62,14 +49,14 @@ public class ItemList implements NewList, RecordThings {
     }
 
     @Override
-    public void getData() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("savedFile.txt"));
+    public void getData(String file) throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
             ArrayList<String> partsOfLine = splitOnSpace(line);
             Item addItem = new Item();
             addItem.setDate(partsOfLine.get(0));
             addItem.setItemName(partsOfLine.get(1));
-            addItem.setRecordMoney(Double.parseDouble(partsOfLine.get(2)));
+            addItem.setMoney(Double.parseDouble(partsOfLine.get(2)));
             itemSummary.add(addItem);
         }
     }
@@ -78,5 +65,4 @@ public class ItemList implements NewList, RecordThings {
         String[] splits = line.split(" ");
         return new ArrayList<>(Arrays.asList(splits));
     }
-
 }

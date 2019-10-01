@@ -1,16 +1,15 @@
 package model;
 
-public class Item implements Category {
+public class Item implements Money {
     private String date;
     private String itemName;
-    private double recordMoney;
+    private double money;
 
     //MODIFIES:THIS
     //EFFECT: Initiate a new item
     public Item() {
         date = "";
         itemName = "";
-        recordMoney = 0.0;
     }
 
     //EFFECT: Return the date of the item
@@ -36,19 +35,21 @@ public class Item implements Category {
     }
 
     //EFFECT: Return the Money of the item
-    public double getRecordMoney() {
-        return recordMoney;
+    @Override
+    public double getMoney() {
+        return money;
     }
 
     //REQUIRES: recordNumber is larger than 0
     //MODIFIES:This
     //EFFECT: Set the money of the item
-    public void setRecordMoney(double recordNumber) {
-        this.recordMoney = recordNumber;
+    @Override
+    public void setMoney(double recordNumber) {
+        this.money = recordNumber;
     }
 
     public String itemToString() {
-        String recordString = date + " " + itemName + " " + Double.toString(recordMoney);
+        String recordString = date + " " + itemName + " " + Double.toString(money);
         return recordString;
     }
 }
