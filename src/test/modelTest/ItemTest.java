@@ -20,8 +20,8 @@ public class ItemTest {
 
     @Test
     public void testSetDate(){
-        testItem.setDate("0922");
-        assertEquals("0922",testItem.getDate());
+        testItem.setDate("09-22");
+        assertEquals("09-22",testItem.getDate());
     }
 
     @Test
