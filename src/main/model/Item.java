@@ -1,5 +1,9 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Item implements Money {
     private String date;
     private String itemName;
@@ -51,5 +55,17 @@ public class Item implements Money {
     public String itemToString() {
         String recordString = date + " " + itemName + " " + Double.toString(money);
         return recordString;
+    }
+
+    public boolean checkValidDate(String time) {
+        Date d = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+        try {
+            sdf.setLenient(false);
+            d = sdf.parse(time);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }

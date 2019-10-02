@@ -44,6 +44,9 @@ public class ItemListTest {
     @Test
     public void testRecordNGetData() throws IOException {
         Item newItem = new Item();
+        newItem.setDate("10-01");
+        newItem.setItemName("test");
+        newItem.setMoney(0.0);
         testList.insert(newItem);
         testList.record("testFile.txt");
         ItemList newItemList = new ItemList();

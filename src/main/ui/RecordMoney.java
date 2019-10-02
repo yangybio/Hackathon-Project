@@ -43,7 +43,7 @@ public class RecordMoney implements Money {
         enterDate(newItem);
         System.out.println("Please enter the money you spent at " + newItem.getDate());
         newItem.setMoney(Double.parseDouble(scanner.nextLine()));
-        System.out.println("Please enter what your money spent for:");
+        System.out.println("Please enter what your money spent for (use _ instead of space):");
         newItem.setItemName(scanner.nextLine());
         System.out.println("You spent " + newItem.getMoney() + " at " + newItem.getDate());
         System.out.println("for " + newItem.getItemName());
@@ -56,36 +56,26 @@ public class RecordMoney implements Money {
         System.out.println("Please enter the date you spent the money(mm-dd):");
         while (true) {
             String time = scanner.nextLine();
-            if (checkValidDate(time)) {
+            if (newItem.checkValidDate(time)) {
                 newItem.setDate(time);
                 break;
             } else {
                 System.out.println("Invalid Date, please enter again!");
             }
         }
+    }
+
+//    public boolean checkValidDate(String time) {
 //        Date d = null;
 //        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
 //        try {
 //            sdf.setLenient(false);
 //            d = sdf.parse(time);
+//            return true;
 //        } catch (ParseException e) {
-//            e.printStackTrace();
-//            System.out.println("Invalid Date, please enter again!");
+//            return false;
 //        }
-//        newItem.setDate(sdf.format(d));
-    }
-
-    public boolean checkValidDate(String time) {
-        Date d = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
-        try {
-            sdf.setLenient(false);
-            d = sdf.parse(time);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
+//    }
 
     //EFFECT: Present the total money spent and summary of recorded items
     public void presentMoney() {
