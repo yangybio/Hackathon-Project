@@ -1,59 +1,54 @@
 package modelTest;
-import model.Item;
+
+import model.DailyAddedItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class ItemTest {
-    private Item testItem;
+public abstract class ItemTest {
+    protected DailyAddedItem testDailyAddedItem;
 
     @BeforeEach
     public void runbefore(){
-        testItem = new Item();
+        testDailyAddedItem = new DailyAddedItem();
     }
 
     @Test
     public void testGetDate(){
-        assertEquals("",testItem.getDate());
+        assertEquals("", testDailyAddedItem.getDate());
     }
 
     @Test
-    public void testSetDate(){
-        testItem.setDate("09-22");
-        assertEquals("09-22",testItem.getDate());
-    }
+    public abstract void testSetDate();
 
     @Test
     public void testGetItemName(){
-        assertEquals("",testItem.getItemName());
+        assertEquals("", testDailyAddedItem.getItemName());
     }
 
     @Test
-    public void testSetItemName(){
-        testItem.setItemName("Book");
-        assertEquals("Book",testItem.getItemName());
-    }
+    public abstract void testSetItemName();
 
     @Test
     public void testGetRecordMoney(){
-        assertEquals(0.0,testItem.getMoney());
+        assertEquals(0.0, testDailyAddedItem.getMoney());
     }
 
     @Test
     public void testSetRecordMoney(){
-        testItem.setMoney(9.8);
-        assertEquals(9.8,testItem.getMoney());
+        testDailyAddedItem.setMoney(9.8);
+        assertEquals(9.8, testDailyAddedItem.getMoney());
     }
+
     @Test
     public void testCheckDate(){
         String time1 = "13-35";
         String time2 = "12-21";
         String time3 = "1221";
-        assertFalse(testItem.checkValidDate(time1));
-        assertTrue(testItem.checkValidDate(time2));
-        assertFalse(testItem.checkValidDate(time3));
-
+        assertFalse(testDailyAddedItem.checkValidDate(time1));
+        assertTrue(testDailyAddedItem.checkValidDate(time2));
+        assertFalse(testDailyAddedItem.checkValidDate(time3));
     }
-
 }

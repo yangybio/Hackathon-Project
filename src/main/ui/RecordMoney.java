@@ -1,13 +1,10 @@
 package ui;
 
-import model.Item;
+import model.DailyAddedItem;
 import model.ItemList;
 import model.Money;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 public class RecordMoney implements Money {
@@ -21,7 +18,7 @@ public class RecordMoney implements Money {
         summary = new ItemList();
         summary.getData("savedFile.txt");
         money = 0.0;
-        for (Item i : summary.getItemList()) {
+        for (DailyAddedItem i : summary.getItemList()) {
             setMoney(i.getMoney());
         }
     }
@@ -39,25 +36,25 @@ public class RecordMoney implements Money {
 
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
-    public void processMoney(Item newItem) throws IOException {
-        enterDate(newItem);
-        System.out.println("Please enter the money you spent at " + newItem.getDate());
-        newItem.setMoney(Double.parseDouble(scanner.nextLine()));
+    public void processMoney(DailyAddedItem newDailyAddedItem) throws IOException {
+        enterDate(newDailyAddedItem);
+        System.out.println("Please enter the money you spent at " + newDailyAddedItem.getDate());
+        newDailyAddedItem.setMoney(Double.parseDouble(scanner.nextLine()));
         System.out.println("Please enter what your money spent for (use _ instead of space):");
-        newItem.setItemName(scanner.nextLine());
-        System.out.println("You spent " + newItem.getMoney() + " at " + newItem.getDate());
-        System.out.println("for " + newItem.getItemName());
-        summary.insert(newItem);
+        newDailyAddedItem.setItemName(scanner.nextLine());
+        System.out.println("You spent " + newDailyAddedItem.getMoney() + " at " + newDailyAddedItem.getDate());
+        System.out.println("for " + newDailyAddedItem.getItemName());
+        summary.insert(newDailyAddedItem);
         summary.record("savedFile.txt");
-        setMoney(newItem.getMoney());
+        setMoney(newDailyAddedItem.getMoney());
     }
 
-    public void enterDate(Item newItem) {
+    public void enterDate(DailyAddedItem newDailyAddedItem) {
         System.out.println("Please enter the date you spent the money(mm-dd):");
         while (true) {
             String time = scanner.nextLine();
-            if (newItem.checkValidDate(time)) {
-                newItem.setDate(time);
+            if (newDailyAddedItem.checkValidDate(time)) {
+                newDailyAddedItem.setDate(time);
                 break;
             } else {
                 System.out.println("Invalid Date, please enter again!");
@@ -90,7 +87,7 @@ public class RecordMoney implements Money {
 
     //EFFECT: Print out the summary of recorded items (money, data and name)
     public void presentSummary() {
-        for (Item i : summary.getItemList()) {
+        for (DailyAddedItem i : summary.getItemList()) {
             System.out.println("Date: " + i.getDate());
             System.out.println("Item: " + i.getItemName());
             System.out.println("Money: " + i.getMoney());

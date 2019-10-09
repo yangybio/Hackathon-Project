@@ -1,7 +1,7 @@
 package ui;
 
 
-import model.Item;
+import model.DailyAddedItem;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -18,13 +18,13 @@ public class LogginFunction {
             System.out.println("Please select the function");
             System.out.println("(1 for Expense Management; 2 for Overview;  3 for quit):");
             function = scanner.nextLine();
-            Item newItem = new Item();
+            DailyAddedItem newDailyAddedItem = new DailyAddedItem();
             if (function.equals("3")) {
                 break;
             }
             if (function.equals("1")) {
                 System.out.println("You selected to Manage your expense");
-                m.processMoney(newItem);
+                m.processMoney(newDailyAddedItem);
             }
             if (function.equals("2")) {
                 System.out.println("You selected to review the money spent today");

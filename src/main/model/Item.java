@@ -4,17 +4,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Item implements Money {
-    private String date;
-    private String itemName;
-    private double money;
+public abstract class Item implements Money {
+    protected String date;
+    protected String itemName;
+    protected double money;
+    protected int state;
 
-    //MODIFIES:THIS
-    //EFFECT: Initiate a new item
     public Item() {
         date = "";
         itemName = "";
     }
+    
 
     //EFFECT: Return the date of the item
     public String getDate() {
@@ -23,9 +23,7 @@ public class Item implements Money {
 
     //MODIFIES:This
     //EFFECT: Set the date of the item
-    public void setDate(String date) {
-        this.date = date;
-    }
+    public abstract void setDate(String date);
 
     //EFFECT: Return the date of the item
     public String getItemName() {
@@ -34,9 +32,7 @@ public class Item implements Money {
 
     //MODIFIES:This
     //EFFECT: Set the name of the item
-    public void setItemName(String name) {
-        this.itemName = name;
-    }
+    public abstract void setItemName(String name);
 
     //EFFECT: Return the Money of the item
     @Override

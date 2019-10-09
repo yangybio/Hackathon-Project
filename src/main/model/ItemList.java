@@ -9,29 +9,29 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class ItemList implements NewList, RecordThings,ReloadThings {
-    private List<Item> itemSummary;
+    private List<DailyAddedItem> dailyAddedItemSummary;
 
     //MODIFIES:This
     //EFFECT: Initialize the ItemList
     public ItemList() {
-        itemSummary = new ArrayList<>();
+        dailyAddedItemSummary = new ArrayList<>();
     }
 
     @Override
     public int size() {
-        return itemSummary.size();
+        return dailyAddedItemSummary.size();
     }
 
     //MODIFIES:This
     //EFFECT: add the new item to itemList
     @Override
-    public void insert(Item newItem) {
-        itemSummary.add(newItem);
+    public void insert(DailyAddedItem newDailyAddedItem) {
+        dailyAddedItemSummary.add(newDailyAddedItem);
     }
 
     //EFFECT: Return the itemSummary of the item list
-    public List<Item> getItemList() {
-        return itemSummary;
+    public List<DailyAddedItem> getItemList() {
+        return dailyAddedItemSummary;
     }
 
 
@@ -39,7 +39,7 @@ public class ItemList implements NewList, RecordThings,ReloadThings {
     public void record(String file) throws IOException {
         List<String> lines = new ArrayList<>();
         PrintWriter writer = new PrintWriter(file, "UTF-8");
-        for (Item i : itemSummary) {
+        for (DailyAddedItem i : dailyAddedItemSummary) {
             lines.add(i.itemToString());
         }
         for (String line : lines) {
@@ -53,11 +53,11 @@ public class ItemList implements NewList, RecordThings,ReloadThings {
         List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
             ArrayList<String> partsOfLine = splitOnSpace(line);
-            Item addItem = new Item();
-            addItem.setDate(partsOfLine.get(0));
-            addItem.setItemName(partsOfLine.get(1));
-            addItem.setMoney(Double.parseDouble(partsOfLine.get(2)));
-            itemSummary.add(addItem);
+            DailyAddedItem addDailyAddedItem = new DailyAddedItem();
+            addDailyAddedItem.setDate(partsOfLine.get(0));
+            addDailyAddedItem.setItemName(partsOfLine.get(1));
+            addDailyAddedItem.setMoney(Double.parseDouble(partsOfLine.get(2)));
+            dailyAddedItemSummary.add(addDailyAddedItem);
         }
     }
 

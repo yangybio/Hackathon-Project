@@ -1,6 +1,6 @@
 package modelTest;
 
-import model.Item;
+import model.DailyAddedItem;
 import model.ItemList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,18 +19,18 @@ public class ItemListTest {
 
     @Test
     public void testInsertItem() {
-        Item addItem = new Item();
-        testList.insert(addItem);
+        DailyAddedItem addDailyAddedItem = new DailyAddedItem();
+        testList.insert(addDailyAddedItem);
         assertEquals(1, testList.size());
     }
 
     @Test
     public void testSize() {
         assertEquals(0, testList.size());
-        Item addItem = new Item();
+        DailyAddedItem addDailyAddedItem = new DailyAddedItem();
         int number = 10;
         for (int i = 0; i < number; i++) {
-            testList.insert(addItem);
+            testList.insert(addDailyAddedItem);
         }
         assertEquals(number, testList.size());
     }
@@ -43,17 +43,17 @@ public class ItemListTest {
 
     @Test
     public void testRecordNGetData() throws IOException {
-        Item newItem = new Item();
-        newItem.setDate("10-01");
-        newItem.setItemName("test");
-        newItem.setMoney(0.0);
-        testList.insert(newItem);
+        DailyAddedItem newDailyAddedItem = new DailyAddedItem();
+        newDailyAddedItem.setDate("10-01");
+        newDailyAddedItem.setItemName("test");
+        newDailyAddedItem.setMoney(0.0);
+        testList.insert(newDailyAddedItem);
         testList.record("testFile.txt");
         ItemList newItemList = new ItemList();
         newItemList.getData("testFile.txt");
-        Item testItem = (newItemList.getItemList()).get(0);
-        assertEquals(newItem.getDate(), testItem.getDate());
-        assertEquals(newItem.getItemName(), testItem.getItemName());
-        assertEquals(newItem.getMoney(), testItem.getMoney());
+        DailyAddedItem testDailyAddedItem = (newItemList.getItemList()).get(0);
+        assertEquals(newDailyAddedItem.getDate(), testDailyAddedItem.getDate());
+        assertEquals(newDailyAddedItem.getItemName(), testDailyAddedItem.getItemName());
+        assertEquals(newDailyAddedItem.getMoney(), testDailyAddedItem.getMoney());
     }
 }
