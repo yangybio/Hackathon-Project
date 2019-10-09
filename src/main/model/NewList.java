@@ -4,5 +4,5 @@ public interface NewList {
 
     public int size();
 
-    public void insert(DailyAddedItem addDailyAddedItem);
+    public void insert(Item addDailyAddedItem);
 }

@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class ItemList implements NewList, RecordThings,ReloadThings {
-    private List<DailyAddedItem> dailyAddedItemSummary;
+    private List<Item> dailyAddedItemSummary;
 
     //MODIFIES:This
     //EFFECT: Initialize the ItemList
@@ -25,12 +25,12 @@ public class ItemList implements NewList, RecordThings,ReloadThings {
     //MODIFIES:This
     //EFFECT: add the new item to itemList
     @Override
-    public void insert(DailyAddedItem newDailyAddedItem) {
+    public void insert(Item newDailyAddedItem) {
         dailyAddedItemSummary.add(newDailyAddedItem);
     }
 
     //EFFECT: Return the itemSummary of the item list
-    public List<DailyAddedItem> getItemList() {
+    public List<Item> getItemList() {
         return dailyAddedItemSummary;
     }
 
@@ -39,7 +39,7 @@ public class ItemList implements NewList, RecordThings,ReloadThings {
     public void record(String file) throws IOException {
         List<String> lines = new ArrayList<>();
         PrintWriter writer = new PrintWriter(file, "UTF-8");
-        for (DailyAddedItem i : dailyAddedItemSummary) {
+        for (Item i : dailyAddedItemSummary) {
             lines.add(i.itemToString());
         }
         for (String line : lines) {
@@ -53,7 +53,7 @@ public class ItemList implements NewList, RecordThings,ReloadThings {
         List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
             ArrayList<String> partsOfLine = splitOnSpace(line);
-            DailyAddedItem addDailyAddedItem = new DailyAddedItem();
+            Item addDailyAddedItem = new DailyAddedItem();
             addDailyAddedItem.setDate(partsOfLine.get(0));
             addDailyAddedItem.setItemName(partsOfLine.get(1));
             addDailyAddedItem.setMoney(Double.parseDouble(partsOfLine.get(2)));

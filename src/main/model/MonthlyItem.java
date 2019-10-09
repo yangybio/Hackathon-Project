@@ -7,13 +7,9 @@ public class MonthlyItem extends Item {
         state = 1;
     }
 
-    @Override
-    public void setDate(String date) {
-
-    }
 
     @Override
     public void setItemName(String name) {
-
+        this.itemName = name + "_Paid_Monthly.";
     }
 }

@@ -1,8 +1,6 @@
 package ui;
 
-import model.DailyAddedItem;
-import model.ItemList;
-import model.Money;
+import model.*;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -18,7 +16,7 @@ public class RecordMoney implements Money {
         summary = new ItemList();
         summary.getData("savedFile.txt");
         money = 0.0;
-        for (DailyAddedItem i : summary.getItemList()) {
+        for (Item i : summary.getItemList()) {
             setMoney(i.getMoney());
         }
     }
@@ -36,20 +34,50 @@ public class RecordMoney implements Money {
 
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
-    public void processMoney(DailyAddedItem newDailyAddedItem) throws IOException {
-        enterDate(newDailyAddedItem);
-        System.out.println("Please enter the money you spent at " + newDailyAddedItem.getDate());
-        newDailyAddedItem.setMoney(Double.parseDouble(scanner.nextLine()));
+    public void processMoney() throws IOException {
+        System.out.println("Does this item need to be paid monthly? ");
+        System.out.println("Enter 1 for yes, 0 for no");
+        String p = scanner.nextLine();
+        if (p.equals("0")) {
+            processDItem();
+        }
+        if (p.equals("1")) {
+            System.out.println("Enter how many times you need to pay:");
+            int times = Integer.parseInt(scanner.nextLine());
+            processMItem(times);
+        }
+
+    }
+
+    public void process(Item newItem) {
+        enterDate(newItem);
+        System.out.println("Please enter the money you spent at " + newItem.getDate());
+        newItem.setMoney(Double.parseDouble(scanner.nextLine()));
         System.out.println("Please enter what your money spent for (use _ instead of space):");
-        newDailyAddedItem.setItemName(scanner.nextLine());
-        System.out.println("You spent " + newDailyAddedItem.getMoney() + " at " + newDailyAddedItem.getDate());
-        System.out.println("for " + newDailyAddedItem.getItemName());
+        newItem.setItemName(scanner.nextLine());
+        System.out.println("You spent " + newItem.getMoney() + " at " + newItem.getDate());
+        System.out.println("for " + newItem.getItemName());
+    }
+
+    public void processDItem() throws IOException {
+        Item newDailyAddedItem = new DailyAddedItem();
+        process(newDailyAddedItem);
         summary.insert(newDailyAddedItem);
         summary.record("savedFile.txt");
         setMoney(newDailyAddedItem.getMoney());
     }
 
-    public void enterDate(DailyAddedItem newDailyAddedItem) {
+    public void processMItem(int times) throws IOException {
+        Item newMItem = new MonthlyItem();
+        process(newMItem);
+        for (int i = 0; i < times; i++) {
+            summary.insert(newMItem);
+        }
+        summary.record("savedFile.txt");
+        setMoney(newMItem.getMoney());
+    }
+
+    public void enterDate(Item newDailyAddedItem) {
         System.out.println("Please enter the date you spent the money(mm-dd):");
         while (true) {
             String time = scanner.nextLine();
@@ -87,7 +115,7 @@ public class RecordMoney implements Money {
 
     //EFFECT: Print out the summary of recorded items (money, data and name)
     public void presentSummary() {
-        for (DailyAddedItem i : summary.getItemList()) {
+        for (Item i : summary.getItemList()) {
             System.out.println("Date: " + i.getDate());
             System.out.println("Item: " + i.getItemName());
             System.out.println("Money: " + i.getMoney());

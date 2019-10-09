@@ -14,7 +14,7 @@ public abstract class Item implements Money {
         date = "";
         itemName = "";
     }
-    
+
 
     //EFFECT: Return the date of the item
     public String getDate() {
@@ -23,7 +23,9 @@ public abstract class Item implements Money {
 
     //MODIFIES:This
     //EFFECT: Set the date of the item
-    public abstract void setDate(String date);
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     //EFFECT: Return the date of the item
     public String getItemName() {

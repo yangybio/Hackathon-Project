@@ -18,13 +18,12 @@ public class LogginFunction {
             System.out.println("Please select the function");
             System.out.println("(1 for Expense Management; 2 for Overview;  3 for quit):");
             function = scanner.nextLine();
-            DailyAddedItem newDailyAddedItem = new DailyAddedItem();
             if (function.equals("3")) {
                 break;
             }
             if (function.equals("1")) {
                 System.out.println("You selected to Manage your expense");
-                m.processMoney(newDailyAddedItem);
+                m.processMoney();
             }
             if (function.equals("2")) {
                 System.out.println("You selected to review the money spent today");

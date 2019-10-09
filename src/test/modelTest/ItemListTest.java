@@ -1,6 +1,7 @@
 package modelTest;
 
 import model.DailyAddedItem;
+import model.Item;
 import model.ItemList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ public class ItemListTest {
         testList.record("testFile.txt");
         ItemList newItemList = new ItemList();
         newItemList.getData("testFile.txt");
-        DailyAddedItem testDailyAddedItem = (newItemList.getItemList()).get(0);
+        Item testDailyAddedItem = (newItemList.getItemList()).get(0);
         assertEquals(newDailyAddedItem.getDate(), testDailyAddedItem.getDate());
         assertEquals(newDailyAddedItem.getItemName(), testDailyAddedItem.getItemName());
         assertEquals(newDailyAddedItem.getMoney(), testDailyAddedItem.getMoney());
