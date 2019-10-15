@@ -3,6 +3,7 @@ package modelTest;
 import model.DailyAddedItem;
 import model.Item;
 import model.ItemList;
+import model.exception.MoneyException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +44,7 @@ public class ItemListTest {
     }
 
     @Test
-    public void testRecordNGetData() throws IOException {
+    public void testRecordNGetData() throws IOException, MoneyException {
         DailyAddedItem newDailyAddedItem = new DailyAddedItem();
         newDailyAddedItem.setDate("10-01");
         newDailyAddedItem.setItemName("test");

@@ -1,5 +1,7 @@
 package model;
 
+import model.exception.MoneyException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -49,7 +51,7 @@ public class ItemList implements  RecordThings,ReloadThings {
     }
 
     @Override
-    public void getData(String file) throws IOException {
+    public void getData(String file) throws IOException, MoneyException {
         List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
             ArrayList<String> partsOfLine = splitOnSpace(line);

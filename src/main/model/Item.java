@@ -1,5 +1,6 @@
 package model;
 
+import model.exception.MoneyException;
 import model.exception.TimeFormException;
 
 import java.text.ParseException;
@@ -48,8 +49,12 @@ public abstract class Item {
     //MODIFIES:This
     //EFFECT: Set the money of the item
 
-    public void setMoney(double recordNumber) {
-        this.money = recordNumber;
+    public void setMoney(double recordNumber) throws MoneyException {
+        if (recordNumber <= 0.0) {
+            throw new MoneyException("Negative Money!!");
+        } else {
+            this.money = recordNumber;
+        }
     }
 
     public String itemToString() {
@@ -69,5 +74,6 @@ public abstract class Item {
             throw new TimeFormException("Wrong format of time!!");
         }
     }
+
     public abstract String nextMonthPay() throws ParseException;
 }

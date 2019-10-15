@@ -2,6 +2,7 @@ package ui;
 
 
 import model.DailyAddedItem;
+import model.exception.MoneyException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,7 +13,7 @@ public class LogginFunction {
 
     public Scanner scanner = new Scanner(System.in);
 
-    public LogginFunction() throws IOException, ParseException {
+    public LogginFunction() throws IOException, ParseException, MoneyException {
         String function = "";
         RecordMoney m = new RecordMoney();
         while (true) {

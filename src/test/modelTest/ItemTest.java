@@ -1,6 +1,8 @@
 package modelTest;
 
 import model.DailyAddedItem;
+import model.exception.MoneyException;
+import model.exception.TimeFormException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,10 +39,44 @@ public abstract class ItemTest {
     }
 
     @Test
-    public void testSetRecordMoney(){
-        testDailyAddedItem.setMoney(9.8);
-        assertEquals(9.8, testDailyAddedItem.getMoney());
+    public void testSetRecordMoney()  {
+        try {
+            testDailyAddedItem.setMoney(9.8);
+            assertEquals(9.8, testDailyAddedItem.getMoney());
+        } catch (MoneyException e) {
+            fail("Shouldn't catch the exception.");
+        }
     }
+
+    @Test
+    public void testWrongMoneySet(){
+        try {
+            testDailyAddedItem.setMoney(-9.8);
+            fail("Should cathe the negative money exception ");
+        } catch (MoneyException e) {
+            //expected
+        }
+    }
+
+    @Test
+    public void testSetCorrectDate(){
+        try{
+            assertTrue(testDailyAddedItem.checkValidDate("2019-10-10"));
+        } catch (TimeFormException e){
+            fail("Shouldn't catch the wrong time exception.");
+        }
+    }
+
+    @Test
+    public void testSetWrongDate(){
+        try{
+            testDailyAddedItem.checkValidDate("19-18-34");
+            fail("Should catch the exception.");
+        } catch (TimeFormException e){
+            //expected 
+        }
+    }
+
 
 //    @Test
 //    public void testCheckDate(){

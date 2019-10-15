@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import model.exception.MoneyException;
 import model.exception.TimeFormException;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class RecordMoney {
 
     //MODIFIES:This
     //EFFECT: Initialize the Money
-    public RecordMoney() throws IOException {
+    public RecordMoney() throws IOException, MoneyException {
         summary = new ItemList();
         summary.getData("savedFile.txt");
         money = 0.0;
@@ -36,7 +37,7 @@ public class RecordMoney {
 
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
-    public void processMoney() throws IOException, ParseException {
+    public void processMoney() throws IOException, ParseException, MoneyException {
         System.out.println("Does this item need to be paid monthly? ");
         System.out.println("Enter 1 for yes, 0 for no");
         String p = scanner.nextLine();
@@ -54,7 +55,16 @@ public class RecordMoney {
     public void process(Item newItem) {
         enterDate(newItem);
         System.out.println("Please enter the money you spent at " + newItem.getDate());
-        newItem.setMoney(Double.parseDouble(scanner.nextLine()));
+        while (true) {
+            double m = Double.parseDouble(scanner.nextLine());
+            try {
+                newItem.setMoney(m);
+                break;
+            } catch (MoneyException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please enter again:");
+            }
+        }
         System.out.println("Please enter what your money spent for (use _ instead of space):");
         newItem.setItemName(scanner.nextLine());
         System.out.println("You spent " + newItem.getMoney() + " at " + newItem.getDate());
@@ -69,7 +79,7 @@ public class RecordMoney {
         setMoney(newDailyAddedItem.getMoney());
     }
 
-    public void processMItem(int times) throws IOException, ParseException {
+    public void processMItem(int times) throws IOException, ParseException, MoneyException {
         Item newMItem = new MonthlyItem();
         process(newMItem);
         for (int i = 0; i < times; i++) {
