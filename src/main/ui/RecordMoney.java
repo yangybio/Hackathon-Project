@@ -1,11 +1,13 @@
 package ui;
 
 import model.*;
+import model.exception.TimeFormException;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
-public class RecordMoney implements Money {
+public class RecordMoney {
     private double money;
     public Scanner scanner = new Scanner(System.in);
     private ItemList summary;
@@ -34,7 +36,7 @@ public class RecordMoney implements Money {
 
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
-    public void processMoney() throws IOException {
+    public void processMoney() throws IOException, ParseException {
         System.out.println("Does this item need to be paid monthly? ");
         System.out.println("Enter 1 for yes, 0 for no");
         String p = scanner.nextLine();
@@ -67,26 +69,41 @@ public class RecordMoney implements Money {
         setMoney(newDailyAddedItem.getMoney());
     }
 
-    public void processMItem(int times) throws IOException {
+    public void processMItem(int times) throws IOException, ParseException {
         Item newMItem = new MonthlyItem();
         process(newMItem);
         for (int i = 0; i < times; i++) {
-            summary.insert(newMItem);
+            Item tempoItem = new MonthlyItem();
+            tempoItem.setMoney(newMItem.getMoney());
+            tempoItem.setItemName(newMItem.getItemName());
+            tempoItem.setDate(newMItem.getDate());
+            tempoItem.setDate(tempoItem.nextMonthPay());
+            newMItem.setDate(tempoItem.getDate());
+            summary.insert(tempoItem);
         }
         summary.record("savedFile.txt");
         setMoney(newMItem.getMoney());
     }
 
     public void enterDate(Item newDailyAddedItem) {
-        System.out.println("Please enter the date you spent the money(mm-dd):");
+        System.out.println("Please enter the date you spent the money(yyyy-mm-dd):");
         while (true) {
             String time = scanner.nextLine();
-            if (newDailyAddedItem.checkValidDate(time)) {
+            try {
+                newDailyAddedItem.checkValidDate(time);
                 newDailyAddedItem.setDate(time);
                 break;
-            } else {
-                System.out.println("Invalid Date, please enter again!");
+            } catch (TimeFormException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please Enter Again!");
             }
+//            if (newDailyAddedItem.checkValidDate(time)) {
+//                newDailyAddedItem.setDate(time);
+//                break;
+//            } else {
+//                System.out.println("Invalid Date, please enter again!");
+//            }
+//        }
         }
     }
 
@@ -123,7 +140,7 @@ public class RecordMoney implements Money {
         }
     }
 
-    @Override
+
     public double getMoney() {
         return money;
     }

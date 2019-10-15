@@ -20,4 +20,9 @@ public class DailyAddedItem extends Item {
         this.itemName = name;
     }
 
+    @Override
+    public String nextMonthPay() throws ParseException {
+        return null;
+    }
+
 }

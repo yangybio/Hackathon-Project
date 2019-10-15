@@ -42,13 +42,13 @@ public abstract class ItemTest {
         assertEquals(9.8, testDailyAddedItem.getMoney());
     }
 
-    @Test
-    public void testCheckDate(){
-        String time1 = "13-35";
-        String time2 = "12-21";
-        String time3 = "1221";
-        assertFalse(testDailyAddedItem.checkValidDate(time1));
-        assertTrue(testDailyAddedItem.checkValidDate(time2));
-        assertFalse(testDailyAddedItem.checkValidDate(time3));
-    }
+//    @Test
+//    public void testCheckDate(){
+//        String time1 = "13-35";
+//        String time2 = "12-21";
+//        String time3 = "1221";
+//        assertFalse(testDailyAddedItem.checkValidDate(time1));
+//        assertTrue(testDailyAddedItem.checkValidDate(time2));
+//        assertFalse(testDailyAddedItem.checkValidDate(time3));
+//    }
 }

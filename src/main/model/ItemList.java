@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-public class ItemList implements NewList, RecordThings,ReloadThings {
+public class ItemList implements  RecordThings,ReloadThings {
     private List<Item> dailyAddedItemSummary;
 
     //MODIFIES:This
@@ -17,14 +17,14 @@ public class ItemList implements NewList, RecordThings,ReloadThings {
         dailyAddedItemSummary = new ArrayList<>();
     }
 
-    @Override
+
     public int size() {
         return dailyAddedItemSummary.size();
     }
 
     //MODIFIES:This
     //EFFECT: add the new item to itemList
-    @Override
+
     public void insert(Item newDailyAddedItem) {
         dailyAddedItemSummary.add(newDailyAddedItem);
     }

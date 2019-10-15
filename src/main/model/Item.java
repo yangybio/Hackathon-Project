@@ -1,10 +1,12 @@
 package model;
 
+import model.exception.TimeFormException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class Item implements Money {
+public abstract class Item {
     protected String date;
     protected String itemName;
     protected double money;
@@ -37,7 +39,7 @@ public abstract class Item implements Money {
     public abstract void setItemName(String name);
 
     //EFFECT: Return the Money of the item
-    @Override
+
     public double getMoney() {
         return money;
     }
@@ -45,7 +47,7 @@ public abstract class Item implements Money {
     //REQUIRES: recordNumber is larger than 0
     //MODIFIES:This
     //EFFECT: Set the money of the item
-    @Override
+
     public void setMoney(double recordNumber) {
         this.money = recordNumber;
     }
@@ -55,15 +57,17 @@ public abstract class Item implements Money {
         return recordString;
     }
 
-    public boolean checkValidDate(String time) {
+    @SuppressWarnings("checkstyle:EmptyBlock")
+    public boolean checkValidDate(String time) throws TimeFormException {
         Date d = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             sdf.setLenient(false);
             d = sdf.parse(time);
             return true;
         } catch (ParseException e) {
-            return false;
+            throw new TimeFormException("Wrong format of time!!");
         }
     }
+    public abstract String nextMonthPay() throws ParseException;
 }

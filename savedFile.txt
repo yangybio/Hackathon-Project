@@ -1,6 +1,6 @@
-10-07 Coffee 8.9
-08-29 Phonebill_Paid_Monthly. 9.8
-08-29 Phonebill_Paid_Monthly. 9.8
-08-29 Phonebill_Paid_Monthly. 9.8
-08-29 Phonebill_Paid_Monthly. 9.8
-08-29 Phonebill_Paid_Monthly. 9.8
+2019-10-02 Food 5.8
+2019-11-10 Fido_Paid_Monthly._Paid_Monthly. 45.0
+2019-12-10 Fido_Paid_Monthly._Paid_Monthly. 45.0
+2020-01-10 Fido_Paid_Monthly._Paid_Monthly. 45.0
+2020-02-10 Fido_Paid_Monthly._Paid_Monthly. 45.0
+2020-03-10 Fido_Paid_Monthly._Paid_Monthly. 45.0
