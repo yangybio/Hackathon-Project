@@ -22,7 +22,7 @@ public class DailyAddedItem extends Item {
 
     @Override
     public String nextMonthPay() throws ParseException {
-        return null;
+        return "";
     }
 
 }

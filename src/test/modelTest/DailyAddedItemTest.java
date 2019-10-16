@@ -24,7 +24,9 @@ public class DailyAddedItemTest extends ItemTest {
 
     @Override
     public void testNextpay() throws ParseException {
-        assertEquals(null,testDailyAddedItem.nextMonthPay());
+        testDailyAddedItem.setDate("2019-10-03");
+        String s = testDailyAddedItem.nextMonthPay();
+        assertEquals("",s);
     }
 
 }
