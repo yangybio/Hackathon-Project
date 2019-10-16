@@ -63,6 +63,8 @@ public class RecordMoney {
             } catch (MoneyException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Please enter again:");
+            } finally {
+                System.out.println("Keep Going!");
             }
         }
         System.out.println("Please enter what your money spent for (use _ instead of space):");
@@ -106,6 +108,8 @@ public class RecordMoney {
             } catch (TimeFormException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Please Enter Again!");
+            } finally {
+                System.out.println("Keep going.");
             }
 //            if (newDailyAddedItem.checkValidDate(time)) {
 //                newDailyAddedItem.setDate(time);
