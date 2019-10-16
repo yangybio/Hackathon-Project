@@ -1,21 +1,20 @@
 package modelTest;
 
 import model.DailyAddedItem;
+import model.Item;
 import model.exception.MoneyException;
 import model.exception.TimeFormException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public abstract class ItemTest {
-    protected DailyAddedItem testDailyAddedItem;
+    protected Item testDailyAddedItem;
 
-    @BeforeEach
-    public void runbefore(){
-        testDailyAddedItem = new DailyAddedItem();
-    }
 
     @Test
     public void testGetDate(){
@@ -23,7 +22,10 @@ public abstract class ItemTest {
     }
 
     @Test
-    public abstract void testSetDate();
+    public void testSetDate(){
+        testDailyAddedItem.setDate("2019-09-22");
+        assertEquals("2019-09-22", testDailyAddedItem.getDate());
+    }
 
     @Test
     public void testGetItemName(){
@@ -73,9 +75,12 @@ public abstract class ItemTest {
             testDailyAddedItem.checkValidDate("19-18-34");
             fail("Should catch the exception.");
         } catch (TimeFormException e){
-            //expected 
+            //expected
         }
     }
+
+    @Test
+    public abstract void testNextpay() throws ParseException;
 
 
 //    @Test

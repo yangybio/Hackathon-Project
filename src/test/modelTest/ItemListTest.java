@@ -48,7 +48,7 @@ public class ItemListTest {
         DailyAddedItem newDailyAddedItem = new DailyAddedItem();
         newDailyAddedItem.setDate("10-01");
         newDailyAddedItem.setItemName("test");
-        newDailyAddedItem.setMoney(0.0);
+        newDailyAddedItem.setMoney(10.0);
         testList.insert(newDailyAddedItem);
         testList.record("testFile.txt");
         ItemList newItemList = new ItemList();
