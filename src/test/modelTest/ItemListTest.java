@@ -46,7 +46,7 @@ public class ItemListTest {
     @Test
     public void testRecordNGetData() throws IOException, MoneyException {
         DailyAddedItem newDailyAddedItem = new DailyAddedItem();
-        newDailyAddedItem.setDate("10-01");
+        newDailyAddedItem.setDate("2010-10-01");
         newDailyAddedItem.setItemName("test");
         newDailyAddedItem.setMoney(10.0);
         testList.insert(newDailyAddedItem);

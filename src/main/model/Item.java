@@ -6,6 +6,7 @@ import model.exception.TimeFormException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public abstract class Item {
     protected String date;
@@ -76,4 +77,26 @@ public abstract class Item {
     }
 
     public abstract String nextMonthPay() throws ParseException;
+
+    public String getMonth() {
+        String month = date.substring(0, 7);
+        return month;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return itemName.equals(item.itemName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemName);
+    }
 }
