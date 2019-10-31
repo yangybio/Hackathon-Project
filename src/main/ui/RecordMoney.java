@@ -6,16 +6,20 @@ import model.exception.TimeFormException;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class RecordMoney {
     private double money;
     public Scanner scanner = new Scanner(System.in);
     private ItemList summary;
+    private SameNameHashMap sameNameList;
+    private TimeTracker monthList;
 
     //MODIFIES:This
     //EFFECT: Initialize the Money
     public RecordMoney() throws IOException, MoneyException {
+        String month = "";
         summary = new ItemList();
         summary.getData("savedFile.txt");
         money = 0.0;
@@ -153,6 +157,13 @@ public class RecordMoney {
             System.out.println("----------------------------");
         }
     }
+
+    public void sortByMonth() {
+        for (Item i : summary.getItemList()) {
+            monthList.addItem(i);
+        }
+    }
+
 
 
     public double getMoney() {
