@@ -25,10 +25,10 @@ public class SameNameHashMap {
         return itemMap.get(i);
     }
 
-    public void printItemDateAndMoney(Item item) {
-        System.out.println("The date and money for " + item.getItemName());
-        for (Item i : itemMap.get(item).getItemList()) {
-            System.out.println(i.getDate() + " " + i.getMoney());
-        }
-    }
+//    public void printItemDateAndMoney(Item item) {
+//        System.out.println("The date and money for " + item.getItemName());
+//        for (Item i : itemMap.get(item).getItemList()) {
+//            System.out.println(i.getDate() + " " + i.getMoney());
+//        }
+//    }
 }
