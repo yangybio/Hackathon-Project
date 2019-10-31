@@ -26,6 +26,7 @@ public class RecordMoney {
         for (Item i : summary.getItemList()) {
             setMoney(i.getMoney());
         }
+        monthList = new TimeTracker();
     }
 
     //EFFECT: return the money
