@@ -13,8 +13,8 @@ public class RecordMoney {
     private double money;
     public Scanner scanner = new Scanner(System.in);
     private ItemList summary;
-    private SameNameHashMap sameNameList;
-    private TimeTracker monthList;
+//    private SameNameHashMap sameNameList;
+//    private TimeTracker monthList;
 
     //MODIFIES:This
     //EFFECT: Initialize the Money
@@ -26,7 +26,7 @@ public class RecordMoney {
         for (Item i : summary.getItemList()) {
             setMoney(i.getMoney());
         }
-        monthList = new TimeTracker();
+//        monthList = new TimeTracker();
     }
 
     //EFFECT: return the money
@@ -159,11 +159,11 @@ public class RecordMoney {
         }
     }
 
-    public void sortByMonth() {
-        for (Item i : summary.getItemList()) {
-            monthList.addItem(i);
-        }
-    }
+//    public void sortByMonth() {
+//        for (Item i : summary.getItemList()) {
+//            monthList.addItem(i);
+//        }
+//    }
 
 
 
