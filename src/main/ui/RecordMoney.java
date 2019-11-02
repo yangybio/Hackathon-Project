@@ -19,20 +19,14 @@ public class RecordMoney {
     //MODIFIES:This
     //EFFECT: Initialize the Money
     public RecordMoney() throws IOException, MoneyException {
-        String month = "";
         summary = new ItemList();
         summary.getData("savedFile.txt");
         money = 0.0;
         for (Item i : summary.getItemList()) {
             setMoney(i.getMoney());
         }
-//        monthList = new TimeTracker();
     }
 
-    //EFFECT: return the money
-    public double getTotalMoney() {
-        return money;
-    }
 
     //MODIFIES:This
     //EFFECT: Set the money
@@ -116,27 +110,9 @@ public class RecordMoney {
             } finally {
                 System.out.println("Keep going.");
             }
-//            if (newDailyAddedItem.checkValidDate(time)) {
-//                newDailyAddedItem.setDate(time);
-//                break;
-//            } else {
-//                System.out.println("Invalid Date, please enter again!");
-//            }
-//        }
         }
     }
 
-//    public boolean checkValidDate(String time) {
-//        Date d = null;
-//        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
-//        try {
-//            sdf.setLenient(false);
-//            d = sdf.parse(time);
-//            return true;
-//        } catch (ParseException e) {
-//            return false;
-//        }
-//    }
 
     //EFFECT: Present the total money spent and summary of recorded items
     public void presentMoney() {
@@ -157,18 +133,6 @@ public class RecordMoney {
             System.out.println("Money: " + i.getMoney());
             System.out.println("----------------------------");
         }
-    }
-
-//    public void sortByMonth() {
-//        for (Item i : summary.getItemList()) {
-//            monthList.addItem(i);
-//        }
-//    }
-
-
-
-    public double getMoney() {
-        return money;
     }
 }
 

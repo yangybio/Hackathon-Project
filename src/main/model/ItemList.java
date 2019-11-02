@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-public class ItemList implements  RecordThings,ReloadThings {
+public class ItemList implements RecordThings, ReloadThings {
     private List<Item> dailyAddedItemSummary;
 
     //MODIFIES:This
@@ -36,6 +36,9 @@ public class ItemList implements  RecordThings,ReloadThings {
         return dailyAddedItemSummary;
     }
 
+    public Boolean contains(Item i) {
+        return dailyAddedItemSummary.contains(i);
+    }
 
     @Override
     public void record(String file) throws IOException {

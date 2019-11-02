@@ -13,10 +13,12 @@ public abstract class Item {
     protected String itemName;
     protected double money;
     protected int state;
+    private PayCategory payTo;
 
     public Item() {
         date = "";
         itemName = "";
+        payTo = PayCategory.GENERAL;
     }
 
 
@@ -39,6 +41,36 @@ public abstract class Item {
     //MODIFIES:This
     //EFFECT: Set the name of the item
     public abstract void setItemName(String name);
+
+    public void setPayTo(PayCategory pay) {
+        if (!pay.getList().contains(this)) {
+            pay.addItem(this);
+            payTo = pay;
+        }
+    }
+
+    public PayCategory toPayMethod(String s) {
+        PayCategory p = PayCategory.GENERAL;
+        if (s.equals("1")) {
+            p = PayCategory.Food;
+        }
+        if (s.equals("2")) {
+            p = PayCategory.CLOTH;
+        }
+        if (s.equals("3")) {
+            p = PayCategory.HOUSING;
+        }
+        if (s.equals("4")) {
+            p = PayCategory.Utilities;
+        } else {
+            return p;
+        }
+        return p;
+    }
+
+    public PayCategory getPayTo() {
+        return payTo;
+    }
 
     //EFFECT: Return the Money of the item
 
@@ -63,7 +95,6 @@ public abstract class Item {
         return recordString;
     }
 
-    @SuppressWarnings("checkstyle:EmptyBlock")
     public boolean checkValidDate(String time) throws TimeFormException {
         Date d = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
