@@ -1,7 +1,6 @@
 package ui;
 
 
-import model.DailyAddedItem;
 import model.exception.MoneyException;
 
 import java.io.IOException;
@@ -15,7 +14,8 @@ public class LogginFunction {
 
     public LogginFunction() throws IOException, ParseException, MoneyException {
         String function = "";
-        RecordMoney m = new RecordMoney();
+        ProcessMoney m = new ProcessMoney();
+        PresentSummary p;
         while (true) {
             System.out.println("Please select the function");
             System.out.println("(1 for Expense Management; 2 for Overview;  3 for quit):");
@@ -29,7 +29,8 @@ public class LogginFunction {
             }
             if (function.equals("2")) {
                 System.out.println("You selected to review the money spent today");
-                m.presentMoney();
+                p = new PresentSummary();
+                p.presentMoney();
 
             } else {
                 System.out.println("Please enter number 1,2 or 3.");

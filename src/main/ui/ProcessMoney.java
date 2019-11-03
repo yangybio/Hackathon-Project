@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class RecordMoney {
+public class ProcessMoney {
     private double money;
     public Scanner scanner = new Scanner(System.in);
     private ItemList summary;
@@ -18,21 +18,18 @@ public class RecordMoney {
 
     //MODIFIES:This
     //EFFECT: Initialize the Money
-    public RecordMoney() throws IOException, MoneyException {
+    public ProcessMoney() throws IOException, MoneyException {
         summary = new ItemList();
         summary.getData("savedFile.txt");
-        money = 0.0;
-        for (Item i : summary.getItemList()) {
-            setMoney(i.getMoney());
-        }
+//        money = summary.getTotalMoney();
     }
 
 
-    //MODIFIES:This
-    //EFFECT: Set the money
-    public void setMoney(double m) {
-        money = m + money;
-    }
+//    //MODIFIES:This
+//    //EFFECT: Set the money
+//    public void setMoney(double m) {
+//        money = m + money;
+//    }
 
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
@@ -48,7 +45,6 @@ public class RecordMoney {
             int times = Integer.parseInt(scanner.nextLine());
             processMItem(times);
         }
-
     }
 
     public void process(Item newItem) {
@@ -77,32 +73,27 @@ public class RecordMoney {
         process(newDailyAddedItem);
         summary.insert(newDailyAddedItem);
         summary.record("savedFile.txt");
-        setMoney(newDailyAddedItem.getMoney());
     }
 
     public void processMItem(int times) throws IOException, ParseException, MoneyException {
         Item newMItem = new MonthlyItem();
         process(newMItem);
         for (int i = 0; i < times; i++) {
-            Item tempoItem = new MonthlyItem();
-            tempoItem.setMoney(newMItem.getMoney());
-            tempoItem.setItemName(newMItem.getItemName());
-            tempoItem.setDate(newMItem.getDate());
-            tempoItem.setDate(tempoItem.nextMonthPay());
+            Item tempoItem = new MonthlyItem(newMItem.getDate(),newMItem.getItemName(),newMItem.getMoney());
+            tempoItem.setDate(newMItem.nextMonthPay());
             newMItem.setDate(tempoItem.getDate());
             summary.insert(tempoItem);
         }
         summary.record("savedFile.txt");
-        setMoney(newMItem.getMoney());
     }
 
-    public void enterDate(Item newDailyAddedItem) {
+    public void enterDate(Item newAddedItem) {
         System.out.println("Please enter the date you spent the money(yyyy-mm-dd):");
         while (true) {
             String time = scanner.nextLine();
             try {
-                newDailyAddedItem.checkValidDate(time);
-                newDailyAddedItem.setDate(time);
+                newAddedItem.checkValidDate(time);
+                newAddedItem.setDate(time);
                 break;
             } catch (TimeFormException e) {
                 System.out.println(e.getMessage());
@@ -114,25 +105,25 @@ public class RecordMoney {
     }
 
 
-    //EFFECT: Present the total money spent and summary of recorded items
-    public void presentMoney() {
-        presentTotalMoney();
-        presentSummary();
-    }
-
-    //EFFECT: print out the total money spent
-    public void presentTotalMoney() {
-        System.out.println("You spent " + money + " totally.");
-    }
-
-    //EFFECT: Print out the summary of recorded items (money, data and name)
-    public void presentSummary() {
-        for (Item i : summary.getItemList()) {
-            System.out.println("Date: " + i.getDate());
-            System.out.println("Item: " + i.getItemName());
-            System.out.println("Money: " + i.getMoney());
-            System.out.println("----------------------------");
-        }
-    }
+//    //EFFECT: Present the total money spent and summary of recorded items
+//    public void presentMoney() {
+//        presentTotalMoney();
+//        presentSummary();
+//    }
+//
+//    //EFFECT: print out the total money spent
+//    public void presentTotalMoney() {
+//        System.out.println("You spent " + money + " totally.");
+//    }
+//
+//    //EFFECT: Print out the summary of recorded items (money, data and name)
+//    public void presentSummary() {
+//        for (Item i : summary.getItemList()) {
+//            System.out.println("Date: " + i.getDate());
+//            System.out.println("Item: " + i.getItemName());
+//            System.out.println("Money: " + i.getMoney());
+//            System.out.println("----------------------------");
+//        }
+//    }
 }
 

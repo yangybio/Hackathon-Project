@@ -14,6 +14,11 @@ public class MonthlyItem extends Item {
         state = 1;
     }
 
+    public MonthlyItem(String date, String name, double m) {
+        super(date, name, m);
+        state = 1;
+    }
+
     @Override
     public void setItemName(String name) {
         this.itemName = name + "_Paid_Monthly.";

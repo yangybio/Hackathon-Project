@@ -13,6 +13,11 @@ public class DailyAddedItem extends Item {
         state = 0;
     }
 
+    public DailyAddedItem(String date, String name, double m) {
+        super(date, name, m);
+        state = 0;
+    }
+
     //MODIFIES:This
     //EFFECT: Set the name of the item
     @Override

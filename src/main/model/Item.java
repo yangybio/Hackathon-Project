@@ -21,6 +21,12 @@ public abstract class Item {
         payTo = PayCategory.GENERAL;
     }
 
+    public Item(String date, String itemName, double m) {
+        this.date = date;
+        this.itemName = itemName;
+        this.money = m;
+    }
+
 
     //EFFECT: Return the date of the item
     public String getDate() {
