@@ -11,22 +11,24 @@ public class DailyAddedItemTest extends ItemTest {
 
     @BeforeEach
     public void runbefore() {
-        testDailyAddedItem = new DailyAddedItem();
+        testItem = new DailyAddedItem();
     }
-
+    
 
     @Override
     @Test
     public void testSetItemName(){
-        testDailyAddedItem.setItemName("Book");
-        assertEquals("Book", testDailyAddedItem.getItemName());
+        testItem.setItemName("Book");
+        assertEquals("Book", testItem.getItemName());
     }
 
     @Override
     public void testNextpay() throws ParseException {
-        testDailyAddedItem.setDate("2019-10-03");
-        String s = testDailyAddedItem.nextMonthPay();
+        testItem.setDate("2019-10-03");
+        String s = testItem.nextMonthPay();
         assertEquals("",s);
     }
+
+
 
 }

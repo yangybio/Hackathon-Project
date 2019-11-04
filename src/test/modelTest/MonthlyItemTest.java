@@ -12,19 +12,19 @@ public class MonthlyItemTest extends ItemTest{
 
     @BeforeEach
     public void runbefore() {
-        testDailyAddedItem = new MonthlyItem();
+        testItem = new MonthlyItem();
     }
 
     @Override
     public void testSetItemName() {
-        testDailyAddedItem.setItemName("Book");
-        assertEquals("Book_Paid_Monthly.", testDailyAddedItem.getItemName());
+        testItem.setItemName("Book");
+        assertEquals("Book_Paid_Monthly.", testItem.getItemName());
     }
 
     @Override
     public void testNextpay() throws ParseException {
-        testDailyAddedItem.setDate("2019-10-03");
-        String s = testDailyAddedItem.nextMonthPay();
+        testItem.setDate("2019-10-03");
+        String s = testItem.nextMonthPay();
         assertEquals("2019-11-03",s);
     }
 }

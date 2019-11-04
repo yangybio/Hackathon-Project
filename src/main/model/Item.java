@@ -18,7 +18,7 @@ public abstract class Item {
     public Item() {
         date = "";
         itemName = "";
-        payTo = PayCategory.GENERAL;
+        payTo = null;
     }
 
     public Item(String date, String itemName, double m) {
@@ -49,14 +49,25 @@ public abstract class Item {
     public abstract void setItemName(String name);
 
     public void setPayTo(PayCategory pay) {
-        if (!pay.getList().contains(this)) {
-            pay.addItem(this);
-            payTo = pay;
+        if (!(payTo == pay)) {
+            if (!(payTo == null)) {
+                removePayMethod();
+            }
         }
+        this.payTo = pay;
+        pay.addItem(this);
     }
 
-    public PayCategory toPayMethod(String s) {
-        PayCategory p = PayCategory.GENERAL;
+    public void removePayMethod() {
+        if (!(payTo == null)) {
+            payTo.removeItem(this);
+            payTo = null;
+        }
+
+    }
+
+    public void toPayMethod(String s) {
+        PayCategory p = null;
         if (s.equals("1")) {
             p = PayCategory.Food;
         }
@@ -68,10 +79,11 @@ public abstract class Item {
         }
         if (s.equals("4")) {
             p = PayCategory.Utilities;
-        } else {
-            return p;
         }
-        return p;
+        if (s.equals("5")) {
+            p = PayCategory.GENERAL;
+        }
+        setPayTo(p);
     }
 
     public PayCategory getPayTo() {
