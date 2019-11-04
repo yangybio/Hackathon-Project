@@ -1,12 +1,14 @@
 package ui;
 
-import model.*;
+import model.DailyAddedItem;
+import model.Item;
+import model.ItemList;
+import model.MonthlyItem;
 import model.exception.MoneyException;
 import model.exception.TimeFormException;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class ProcessMoney {
@@ -101,6 +103,10 @@ public class ProcessMoney {
                 System.out.println("Keep going.");
             }
         }
+    }
+
+    public void clear() throws IOException {
+        summary.clearData("savedFile.txt");
     }
 
 

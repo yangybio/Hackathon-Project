@@ -13,7 +13,7 @@ public class DailyAddedItemTest extends ItemTest {
     public void runbefore() {
         testItem = new DailyAddedItem();
     }
-    
+
 
     @Override
     @Test

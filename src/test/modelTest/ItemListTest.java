@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ItemListTest {
     private ItemList testList;
@@ -57,5 +58,13 @@ public class ItemListTest {
         assertEquals(newDailyAddedItem.getDate(), testDailyAddedItem.getDate());
         assertEquals(newDailyAddedItem.getItemName(), testDailyAddedItem.getItemName());
         assertEquals(newDailyAddedItem.getMoney(), testDailyAddedItem.getMoney());
+    }
+
+    @Test
+    public void testClear() throws IOException, MoneyException {
+        testList.clearData("testFile.txt");
+        ItemList newList = new ItemList();
+        newList.getData("testFile.txt");
+        assertTrue(newList.getItemList().isEmpty());
     }
 }

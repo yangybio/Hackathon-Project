@@ -1,6 +1,7 @@
 package ui;
 
 
+
 import model.exception.MoneyException;
 
 import java.io.IOException;
@@ -16,7 +17,6 @@ public class LogginFunction {
         String function = "";
         ProcessMoney m = new ProcessMoney();
         PresentSummary p;
-        ClearAll clear = new ClearAll();
         while (true) {
             System.out.println("Please select the function");
             System.out.println("1-Expense Management; 2-Overview; 3-clear; 4-quit :");
@@ -34,7 +34,7 @@ public class LogginFunction {
                 p.presentMoney();
             }
             if (function.equals("3")) {
-                clear.clearData();
+                m.clear();
             } else {
                 System.out.println("Please enter number 1,2 or 3.");
             }

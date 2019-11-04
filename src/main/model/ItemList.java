@@ -2,13 +2,13 @@ package model;
 
 import model.exception.MoneyException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ItemList implements RecordThings, ReloadThings {
     private List<Item> itemSummary;
@@ -70,6 +70,11 @@ public class ItemList implements RecordThings, ReloadThings {
                 this.insert(addDailyAddedItem);
             }
         }
+    }
+
+    public void clearData(String file) throws IOException {
+        ItemList emptyList = new ItemList();
+        emptyList.record(file);
     }
 
     public static ArrayList<String> splitOnSpace(String line) {
