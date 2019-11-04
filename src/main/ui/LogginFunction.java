@@ -16,11 +16,12 @@ public class LogginFunction {
         String function = "";
         ProcessMoney m = new ProcessMoney();
         PresentSummary p;
+        ClearAll clear = new ClearAll();
         while (true) {
             System.out.println("Please select the function");
-            System.out.println("(1 for Expense Management; 2 for Overview;  3 for quit):");
+            System.out.println("1-Expense Management; 2-Overview; 3-clear; 4-quit :");
             function = scanner.nextLine();
-            if (function.equals("3")) {
+            if (function.equals("4")) {
                 break;
             }
             if (function.equals("1")) {
@@ -31,7 +32,9 @@ public class LogginFunction {
                 System.out.println("You selected to review the money spent today");
                 p = new PresentSummary();
                 p.presentMoney();
-
+            }
+            if (function.equals("3")) {
+                clear.clearData();
             } else {
                 System.out.println("Please enter number 1,2 or 3.");
             }

@@ -24,7 +24,6 @@ public class ProcessMoney {
 //        money = summary.getTotalMoney();
     }
 
-
 //    //MODIFIES:This
 //    //EFFECT: Set the money
 //    public void setMoney(double m) {
