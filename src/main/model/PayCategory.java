@@ -1,9 +1,26 @@
 package model;
 
-public enum PayCategory {
-    Food, GENERAL, Utilities, CLOTH, HOUSING;
-    private ItemList itemList = new ItemList();
+public class PayCategory {
 
+    private Category category;
+    private ItemList itemList;
+
+    public enum Category {
+        Food, GENERAL, Utilities, CLOTH, HOUSING
+    }
+
+    public PayCategory() {
+        category = null;
+        itemList = new ItemList();
+    }
+
+    public void setCategory(Category c) {
+        category = c;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
 
     public void addItem(Item i) {
         if (!this.itemList.contains(i)) {
@@ -25,4 +42,5 @@ public enum PayCategory {
             i.removePayMethod();
         }
     }
+
 }

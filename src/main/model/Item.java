@@ -54,7 +54,7 @@ public abstract class Item {
                 removePayMethod();
             }
         }
-        this.payTo = pay;
+        payTo = pay;
         pay.addItem(this);
     }
 
@@ -67,23 +67,22 @@ public abstract class Item {
     }
 
     public void toPayMethod(String s) {
-        PayCategory p = null;
+        payTo = new PayCategory();
         if (s.equals("1")) {
-            p = PayCategory.Food;
+            payTo.setCategory(PayCategory.Category.Food);
         }
         if (s.equals("2")) {
-            p = PayCategory.CLOTH;
+            payTo.setCategory(PayCategory.Category.CLOTH);
         }
         if (s.equals("3")) {
-            p = PayCategory.HOUSING;
+            payTo.setCategory(PayCategory.Category.HOUSING);
         }
         if (s.equals("4")) {
-            p = PayCategory.Utilities;
+            payTo.setCategory(PayCategory.Category.Utilities);
         }
         if (s.equals("5")) {
-            p = PayCategory.GENERAL;
+            payTo.setCategory(PayCategory.Category.GENERAL);
         }
-        setPayTo(p);
     }
 
     public PayCategory getPayTo() {
