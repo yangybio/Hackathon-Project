@@ -31,7 +31,6 @@ public class ProcessMoney {
 //    public void setMoney(double m) {
 //        money = m + money;
 //    }
-
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
     public void processMoney() throws IOException, ParseException, MoneyException {
