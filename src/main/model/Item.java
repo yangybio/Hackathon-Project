@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public abstract class Item {
+
     protected String date;
     protected String itemName;
     protected double money;
@@ -146,5 +147,9 @@ public abstract class Item {
     @Override
     public int hashCode() {
         return Objects.hash(itemName);
+    }
+
+    public void update() {
+        System.out.println("Total money changed!");
     }
 }

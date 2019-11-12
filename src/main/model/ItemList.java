@@ -10,15 +10,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemList implements RecordThings, ReloadThings {
+public class ItemList extends Subject implements RecordThings, ReloadThings {
     private List<Item> itemSummary;
     private double money;
+
 
     //MODIFIES:This
     //EFFECT: Initialize the ItemList
     public ItemList() {
         itemSummary = new ArrayList<>();
         money = 0.0;
+        users = new ArrayList<>();
     }
 
 
@@ -32,6 +34,7 @@ public class ItemList implements RecordThings, ReloadThings {
     public void insert(Item newDailyAddedItem) {
         itemSummary.add(newDailyAddedItem);
         money = money + newDailyAddedItem.getMoney();
+        notifyUser();
     }
 
     //EFFECT: Return the itemSummary of the item list
@@ -85,4 +88,6 @@ public class ItemList implements RecordThings, ReloadThings {
     public double getTotalMoney() {
         return money;
     }
+
+
 }
