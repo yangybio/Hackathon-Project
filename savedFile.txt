@@ -1,2 +1,2 @@
-2019-11-12 RBC_Credit_Card 352.04
-2019-11-12 Dinner 8.9
+2019-11-13 RBC_Credit_Card 352.04
+2019-11-13 Coffee 3.6
