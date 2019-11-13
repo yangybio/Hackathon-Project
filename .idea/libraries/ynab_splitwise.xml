@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ynab-splitwise">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/ynab-splitwise.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
