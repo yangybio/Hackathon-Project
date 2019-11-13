@@ -112,8 +112,8 @@ public class ProcessMoney {
     public void addRBCardBalance() throws MoneyException, IOException {
         YnabUser user = new YnabUser();
         Item newItem = user.newCreditItem();
-        String s = "Your credit card still needs to pay " + newItem.getMoney() + " at " + newItem.getDate();
-        System.out.println(s + " for " + newItem.getItemName());
+        String s = "You still need to pay " + newItem.getMoney() + " at " + newItem.getDate();
+        System.out.println(s + " for " + newItem.getItemName() + " credit card.");
         summary.insert(newItem);
         summary.record("savedFile.txt");
     }
