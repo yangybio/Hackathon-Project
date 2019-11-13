@@ -51,26 +51,4 @@ public class YnabUser {
         newItem = new DailyAddedItem(date, "rbc", this.getCreditBlance());
         return newItem;
     }
-
-//    public static void main(String[] args) {
-//        ApiClient user = Configuration.getDefaultApiClient();
-//        // Configure API key authorization: bearer
-//        ApiKeyAuth bearer = (ApiKeyAuth) user.getAuthentication("bearer");
-//        bearer.setApiKey("9d712bd3f769140d51a3c0c77dcc5646234ac2691de1c600c71d6eec05ff7e61");
-//        bearer.setApiKeyPrefix("Bearer");
-//
-//        AccountsApi apiInstance = new AccountsApi();
-//        UUID budgetId = UUID.fromString("b79ebeeb-6981-49e0-b020-2cef9ffb779d"); // UUID | The ID of the Budget.
-//        try {
-//            AccountsResponse result = apiInstance.getAccounts(budgetId);
-//            System.out.println(result);
-//            System.out.println("--------------------------");
-//            double money = result.getData().getAccounts().get(0).getBalance().doubleValue();
-//            money = (-1 * money) / 1000.00;
-//            System.out.println(money);
-//        } catch (ApiException e) {
-//            System.err.println("Exception when calling AccountsApi#getAccounts");
-//            e.printStackTrace();
-//        }
-//    }
 }
