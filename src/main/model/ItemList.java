@@ -9,8 +9,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
 
-public class ItemList extends Subject implements RecordThings, ReloadThings {
+public class ItemList extends Observable implements RecordThings, ReloadThings {
     private List<Item> itemSummary;
     private double money;
 
@@ -20,7 +21,7 @@ public class ItemList extends Subject implements RecordThings, ReloadThings {
     public ItemList() {
         itemSummary = new ArrayList<>();
         money = 0.0;
-        users = new ArrayList<>();
+        addObserver(new MoneyObserver());
     }
 
 
@@ -34,7 +35,8 @@ public class ItemList extends Subject implements RecordThings, ReloadThings {
     public void insert(Item newDailyAddedItem) {
         itemSummary.add(newDailyAddedItem);
         money = money + newDailyAddedItem.getMoney();
-        notifyUser();
+        setChanged();
+        notifyObservers(newDailyAddedItem);
     }
 
     //EFFECT: Return the itemSummary of the item list
@@ -59,6 +61,7 @@ public class ItemList extends Subject implements RecordThings, ReloadThings {
         writer.close();
     }
 
+
     @Override
     public void getData(String file) throws IOException, MoneyException {
         List<String> lines = Files.readAllLines(Paths.get(file));
@@ -69,8 +72,8 @@ public class ItemList extends Subject implements RecordThings, ReloadThings {
                 addDailyAddedItem.setDate(partsOfLine.get(0));
                 addDailyAddedItem.setItemName(partsOfLine.get(1));
                 addDailyAddedItem.setMoney(Double.parseDouble(partsOfLine.get(2)));
-//            itemSummary.add(addDailyAddedItem);
-                this.insert(addDailyAddedItem);
+                this.itemSummary.add(addDailyAddedItem);
+                money = money + addDailyAddedItem.getMoney();
             }
         }
     }

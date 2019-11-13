@@ -65,8 +65,6 @@ public class ProcessMoney {
         }
         System.out.println("Please enter what your money spent for (use _ instead of space):");
         newItem.setItemName(scanner.nextLine());
-        String s = "You spent " + newItem.getMoney() + " at " + newItem.getDate();
-        System.out.println(s + " for " + newItem.getItemName());
     }
 
     public void processDItem() throws IOException {
@@ -112,32 +110,8 @@ public class ProcessMoney {
     public void addRBCardBalance() throws MoneyException, IOException {
         YnabUser user = new YnabUser();
         Item newItem = user.newCreditItem();
-        String s = "You still need to pay " + newItem.getMoney() + " at " + newItem.getDate();
-        System.out.println(s + " for " + newItem.getItemName() + " credit card.");
         summary.insert(newItem);
         summary.record("savedFile.txt");
     }
-
-
-//    //EFFECT: Present the total money spent and summary of recorded items
-//    public void presentMoney() {
-//        presentTotalMoney();
-//        presentSummary();
-//    }
-//
-//    //EFFECT: print out the total money spent
-//    public void presentTotalMoney() {
-//        System.out.println("You spent " + money + " totally.");
-//    }
-//
-//    //EFFECT: Print out the summary of recorded items (money, data and name)
-//    public void presentSummary() {
-//        for (Item i : summary.getItemList()) {
-//            System.out.println("Date: " + i.getDate());
-//            System.out.println("Item: " + i.getItemName());
-//            System.out.println("Money: " + i.getMoney());
-//            System.out.println("----------------------------");
-//        }
-//    }
 }
 

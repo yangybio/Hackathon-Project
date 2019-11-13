@@ -152,4 +152,14 @@ public abstract class Item {
     public void update() {
         System.out.println("Total money changed!");
     }
+
+    @SuppressWarnings("checkstyle:OperatorWrap")
+    @Override
+    public String toString() {
+        return "New Item{"
+                + " Date='" + date + '\''
+                + ", Name='" + itemName + '\''
+                + ", Money=" + money
+                + '}';
+    }
 }

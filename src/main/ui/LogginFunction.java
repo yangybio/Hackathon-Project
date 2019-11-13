@@ -30,7 +30,7 @@ public class LogginFunction {
                 m.processMoney();
             }
             if (function.equals("2")) {
-                System.out.println("You selected to review the money spent today");
+                System.out.println("You selected to review the money spent.");
                 p = new PresentSummary();
                 p.presentMoney();
             }
