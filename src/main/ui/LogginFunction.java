@@ -19,9 +19,10 @@ public class LogginFunction {
         PresentSummary p;
         while (true) {
             System.out.println("Please select the function");
-            System.out.println("1-Expense Management; 2-Overview; 3-clear; 4-quit :");
+            System.out.println("1-Add Expenses|2-Overview|3-import card transaction|4-clear|5-quit :");
+
             function = scanner.nextLine();
-            if (function.equals("4")) {
+            if (function.equals("5")) {
                 break;
             }
             if (function.equals("1")) {
@@ -33,8 +34,11 @@ public class LogginFunction {
                 p = new PresentSummary();
                 p.presentMoney();
             }
-            if (function.equals("3")) {
+            if (function.equals("4")) {
                 m.clear();
+            }
+            if (function.equals("3")) {
+                m.addRBCardBalance();
             } else {
                 System.out.println("Please enter number 1,2 or 3.");
             }

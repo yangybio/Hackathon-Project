@@ -6,6 +6,7 @@ import model.ItemList;
 import model.MonthlyItem;
 import model.exception.MoneyException;
 import model.exception.TimeFormException;
+import network.YnabUser;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -64,8 +65,8 @@ public class ProcessMoney {
         }
         System.out.println("Please enter what your money spent for (use _ instead of space):");
         newItem.setItemName(scanner.nextLine());
-        System.out.println("You spent " + newItem.getMoney() + " at " + newItem.getDate());
-        System.out.println("for " + newItem.getItemName());
+        String s = "You spent " + newItem.getMoney() + " at " + newItem.getDate();
+        System.out.println(s + " for " + newItem.getItemName());
     }
 
     public void processDItem() throws IOException {
@@ -106,6 +107,15 @@ public class ProcessMoney {
 
     public void clear() throws IOException {
         summary.clearData("savedFile.txt");
+    }
+
+    public void addRBCardBalance() throws MoneyException, IOException {
+        YnabUser user = new YnabUser();
+        Item newItem = user.newCreditItem();
+        String s = "Your credit card still needs to pay " + newItem.getMoney() + " at " + newItem.getDate();
+        System.out.println(s + " for " + newItem.getItemName());
+        summary.insert(newItem);
+        summary.record("savedFile.txt");
     }
 
 
