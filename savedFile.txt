@@ -1,3 +1,2 @@
-2019-11-13 RBC_Credit_Card 352.04
-2019-11-13 Coffee 3.6
-2019-11-13 RBC_Credit_Card 352.04
+2019-11-17 RBC_Credit_Card 352.04
+2019-11-17 test 3.8

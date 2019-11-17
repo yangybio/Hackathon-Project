@@ -156,10 +156,10 @@ public abstract class Item {
     @SuppressWarnings("checkstyle:OperatorWrap")
     @Override
     public String toString() {
-        return "New Item{"
-                + " Date='" + date + '\''
-                + ", Name='" + itemName + '\''
-                + ", Money=" + money
-                + '}';
+        return "-->New expense for :\n"
+                + "Date= " + date + "\n"
+                + "Name= " + itemName + "\n"
+                + "Money= " + money
+                + "!\n";
     }
 }

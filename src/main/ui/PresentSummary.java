@@ -21,7 +21,7 @@ public class PresentSummary {
 
     //EFFECT: print out the total money spent
     public void presentTotalMoney() {
-        System.out.println("You spent " + summary.getTotalMoney() + " totally.");
+        System.out.println("-->You spent " + summary.getTotalMoney() + " totally.");
     }
 
     //EFFECT: Print out the summary of recorded items (money, data and name)
