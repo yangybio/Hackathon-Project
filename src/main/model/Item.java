@@ -19,7 +19,7 @@ public abstract class Item {
     public Item() {
         date = "";
         itemName = "";
-        payTo = null;
+        payTo = new PayCategory();
     }
 
     public Item(String date, String itemName, double m) {
@@ -68,24 +68,23 @@ public abstract class Item {
             payTo.removeItem(this);
             payTo = null;
         }
-
     }
 
     public void toPayMethod(String s) {
         payTo = new PayCategory();
-        if (s.equals("1")) {
-            payTo.setCategory(PayCategory.Category.Food);
+        if (s.equals("FOOD")) {
+            payTo.setCategory(PayCategory.Category.FOOD);
         }
-        if (s.equals("2")) {
-            payTo.setCategory(PayCategory.Category.CLOTH);
+        if (s.equals("CREDIT")) {
+            payTo.setCategory(PayCategory.Category.CREDIT);
         }
-        if (s.equals("3")) {
+        if (s.equals("HOUSING")) {
             payTo.setCategory(PayCategory.Category.HOUSING);
         }
-        if (s.equals("4")) {
-            payTo.setCategory(PayCategory.Category.Utilities);
+        if (s.equals("UTILITIES")) {
+            payTo.setCategory(PayCategory.Category.UTILITIES);
         }
-        if (s.equals("5")) {
+        if (s.equals("GENERAL")) {
             payTo.setCategory(PayCategory.Category.GENERAL);
         }
     }
@@ -113,7 +112,7 @@ public abstract class Item {
     }
 
     public String itemToString() {
-        String recordString = date + " " + itemName + " " + Double.toString(money);
+        String recordString = payTo.getString() + " " + date + " " + itemName + " " + Double.toString(money);
         return recordString;
     }
 
@@ -160,7 +159,7 @@ public abstract class Item {
     @SuppressWarnings("checkstyle:OperatorWrap")
     @Override
     public String toString() {
-        return "-->"
+        return  payTo.getString() +  " -->"
                 + " Date= " + date + "  "
                 + " Name= " + itemName + "  "
                 + " Money= " + money

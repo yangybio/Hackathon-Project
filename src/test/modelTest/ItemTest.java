@@ -85,25 +85,25 @@ public abstract class ItemTest {
 
     @Test
     public void testSetPay(){
-        assertEquals(null,testItem.getPayTo());
+        assertEquals(PayCategory.Category.FOOD,testItem.getPayTo().getCategory());
         PayCategory testP = new PayCategory();
-        testP.setCategory(PayCategory.Category.Food);
+        testP.setCategory(PayCategory.Category.FOOD);
         testItem.setPayTo(testP);
-        assertEquals(PayCategory.Category.Food,testItem.getPayTo().getCategory());
+        assertEquals(PayCategory.Category.FOOD,testItem.getPayTo().getCategory());
     }
 
 
     @Test
     public void testToPayMethod(){
-        testItem.toPayMethod("1");
-        assertEquals(PayCategory.Category.Food,testItem.getPayTo().getCategory());
-        testItem.toPayMethod("2");
-        assertEquals(PayCategory.Category.CLOTH,testItem.getPayTo().getCategory());
-        testItem.toPayMethod("3");
+        testItem.toPayMethod("FOOD");
+        assertEquals(PayCategory.Category.FOOD,testItem.getPayTo().getCategory());
+        testItem.toPayMethod("CREDIT");
+        assertEquals(PayCategory.Category.CREDIT,testItem.getPayTo().getCategory());
+        testItem.toPayMethod("HOUSING");
         assertEquals(PayCategory.Category.HOUSING,testItem.getPayTo().getCategory());
-        testItem.toPayMethod("4");
-        assertEquals(PayCategory.Category.Utilities,testItem.getPayTo().getCategory());
-        testItem.toPayMethod("5");
+        testItem.toPayMethod("UTILITIES");
+        assertEquals(PayCategory.Category.UTILITIES,testItem.getPayTo().getCategory());
+        testItem.toPayMethod("GENERAL");
         assertEquals(PayCategory.Category.GENERAL,testItem.getPayTo().getCategory());
     }
 }

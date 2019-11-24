@@ -19,14 +19,17 @@ import java.util.Date;
 public class AddItemFunction extends JPanel {
     private JLabel date;
     private JLabel money;
+    String itemCate;
     JLabel itemName;
     JTextField dateField;
     JTextField moneyField;
     JTextField nameField;
+    JLabel cateField;
     JButton addNewItem;
     private Item newItem;
     private ItemList itemList;
     JSpinner time;
+    private JComboBox category;
     private EventListenerList listenerList = new EventListenerList();
 
     public AddItemFunction() throws IOException, MoneyException {
@@ -39,11 +42,15 @@ public class AddItemFunction extends JPanel {
         date = new JLabel("Date: ");
         money = new JLabel("Money: ");
         itemName = new JLabel("Name: ");
+        cateField = new JLabel("Category: ");
         dateField = new JTextField(10);
         moneyField = new JTextField(10);
         nameField = new JTextField(10);
         addNewItem = new JButton("Add new item");
-
+        String[] categories = {"FOOD", "GENERAL", "UTILITIES", "CREDIT", "HOUSING"};
+        itemCate = "";
+        category = new JComboBox(categories);
+        category.setEditable(true);
         setLayout(new GridBagLayout());
         setEverything();
         setListener();
@@ -51,7 +58,7 @@ public class AddItemFunction extends JPanel {
 
     public void setLable() {
         GridBagConstraints gc = new GridBagConstraints();
-        gc.weighty = 2;
+        gc.weighty = 1;
         gc.gridx = 0;
         gc.gridy = 1;
         add(itemName, gc);
@@ -63,6 +70,9 @@ public class AddItemFunction extends JPanel {
         gc.gridx = 0;
         gc.gridy = 3;
         add(money, gc);
+        gc.gridx = 0;
+        gc.gridy = 4;
+        add(cateField, gc);
     }
 
     public void setEverything() {
@@ -77,32 +87,38 @@ public class AddItemFunction extends JPanel {
         gc.gridx = 1;
         gc.gridy = 3;
         add(moneyField, gc);
-        gc.weighty = 10;
-        gc.anchor = GridBagConstraints.FIRST_LINE_START;
         gc.gridx = 1;
         gc.gridy = 4;
+        add(category, gc);
+        gc.weighty = 10;
+        gc.gridx = 1;
+        gc.gridy = 5;
         add(addNewItem, gc);
     }
 
     public void setListener() {
         addNewItem.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 Item output = null;
                 try {
                     output = processItem();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                try {
                     fireAddItemEvent(new DetailEvent(this, output));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (MoneyException ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
+        category.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cate = (String) category.getSelectedItem();
+                updateCate(cate);
+            }
+        });
+    }
+
+    public void updateCate(String cate) {
+        itemCate = cate;
     }
 
     public Item processItem() throws IOException {
@@ -112,6 +128,7 @@ public class AddItemFunction extends JPanel {
         String date = sdf.format(d);
         double money = Double.parseDouble(moneyField.getText());
         newItem = new DailyAddedItem(date,name,money);
+        newItem.toPayMethod(itemCate);
         try {
             itemList = new ItemList();
             itemList.getData("savedFile.txt");

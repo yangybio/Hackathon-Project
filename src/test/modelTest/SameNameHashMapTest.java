@@ -26,8 +26,8 @@ public class SameNameHashMapTest {
         newItem2.setDate("2010-12-21");
         newItem2.setItemName("test");
         newItem2.setMoney(10.0);
-        list.insert(newItem1);
-        list.insert(newItem2);
+        list.getItemList().add(newItem1);
+        list.getItemList().add(newItem2);
     }
 
     @Test

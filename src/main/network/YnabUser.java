@@ -66,6 +66,7 @@ public class YnabUser {
         LocalDateTime now = LocalDateTime.now();
         String date = dtf.format(now);
         newItem = new DailyAddedItem(date, "RBC_Card", this.getCreditBalance());
+        newItem.toPayMethod("CREDIT");
         return newItem;
     }
 }

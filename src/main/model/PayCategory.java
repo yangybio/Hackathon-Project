@@ -6,11 +6,11 @@ public class PayCategory {
     private ItemList itemList;
 
     public enum Category {
-        Food, GENERAL, Utilities, CLOTH, HOUSING
+        FOOD, GENERAL, UTILITIES, CREDIT, HOUSING
     }
 
     public PayCategory() {
-        category = null;
+        category = Category.FOOD;
         itemList = new ItemList();
     }
 
@@ -22,12 +22,29 @@ public class PayCategory {
         return category;
     }
 
+    public String getString() {
+        switch (category) {
+            case FOOD:
+                return "FOOD";
+            case CREDIT:
+                return "CREDIT";
+            case GENERAL:
+                return "GENERAL";
+            case HOUSING:
+                return "HOUSING";
+            default:
+            case UTILITIES:
+                return "UTILITIES";
+        }
+    }
+
+
     public void addItem(Item i) {
         if (!this.itemList.contains(i)) {
             if (!(i.getPayTo() == null)) {
                 i.removePayMethod();
             }
-            this.itemList.insert(i);
+            itemList.getItemList().add(i);
             i.setPayTo(this);
         }
     }

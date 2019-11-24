@@ -69,9 +69,10 @@ public class ItemList extends Observable implements RecordThings, ReloadThings {
             for (String line : lines) {
                 ArrayList<String> partsOfLine = splitOnSpace(line);
                 Item addDailyAddedItem = new DailyAddedItem();
-                addDailyAddedItem.setDate(partsOfLine.get(0));
-                addDailyAddedItem.setItemName(partsOfLine.get(1));
-                addDailyAddedItem.setMoney(Double.parseDouble(partsOfLine.get(2)));
+                addDailyAddedItem.toPayMethod(partsOfLine.get(0));
+                addDailyAddedItem.setDate(partsOfLine.get(1));
+                addDailyAddedItem.setItemName(partsOfLine.get(2));
+                addDailyAddedItem.setMoney(Double.parseDouble(partsOfLine.get(3)));
                 this.itemSummary.add(addDailyAddedItem);
                 money = money + addDailyAddedItem.getMoney();
             }

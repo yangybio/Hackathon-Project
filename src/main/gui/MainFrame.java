@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollPane.setViewportView(list);
         Dimension size = getPreferredSize();
-        size.width = 400;
+        size.width = 500;
         scrollPane.setPreferredSize(size);
 //        JTextArea textArea = new JTextArea(20,33);
 //        OutputToText out = new OutputToText(textArea);

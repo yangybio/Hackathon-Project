@@ -23,7 +23,7 @@ public class ItemListTest {
     @Test
     public void testInsertItem() {
         DailyAddedItem addDailyAddedItem = new DailyAddedItem();
-        testList.insert(addDailyAddedItem);
+        testList.getItemList().add(addDailyAddedItem);
         assertEquals(1, testList.size());
     }
 
@@ -33,7 +33,7 @@ public class ItemListTest {
         DailyAddedItem addDailyAddedItem = new DailyAddedItem();
         int number = 10;
         for (int i = 0; i < number; i++) {
-            testList.insert(addDailyAddedItem);
+            testList.getItemList().add(addDailyAddedItem);
         }
         assertEquals(number, testList.size());
     }
@@ -50,7 +50,7 @@ public class ItemListTest {
         newDailyAddedItem.setDate("2010-10-01");
         newDailyAddedItem.setItemName("test");
         newDailyAddedItem.setMoney(10.0);
-        testList.insert(newDailyAddedItem);
+        testList.getItemList().add(newDailyAddedItem);
         testList.record("testFile.txt");
         ItemList newItemList = new ItemList();
         newItemList.getData("testFile.txt");

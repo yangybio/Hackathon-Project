@@ -1,6 +1,5 @@
 package gui;
 
-import gui.tool.AddItemListener;
 import gui.tool.DetailEvent;
 import gui.tool.OverviewListener;
 import model.exception.MoneyException;
@@ -73,7 +72,6 @@ public class FunctionPanel extends JPanel {
             }
         });
     }
-
 
     public void addDetailListener(OverviewListener listener) {
         this.listenerList.add(OverviewListener.class, listener);

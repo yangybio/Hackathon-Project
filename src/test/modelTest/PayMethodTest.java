@@ -25,7 +25,7 @@ public class PayMethodTest {
 
     @Test
     public void testSetCategory() {
-        assertEquals(null,testPay.getCategory());
+        assertEquals(PayCategory.Category.FOOD,testPay.getCategory());
     }
 
     @Test
