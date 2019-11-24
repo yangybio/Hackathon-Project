@@ -43,6 +43,7 @@ public class AddItemFunction extends JPanel {
         moneyField = new JTextField(10);
         nameField = new JTextField(10);
         addNewItem = new JButton("Add new item");
+
         setLayout(new GridBagLayout());
         setEverything();
         setListener();

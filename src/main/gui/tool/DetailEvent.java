@@ -8,13 +8,6 @@ import java.io.IOException;
 import java.util.EventObject;
 
 public class DetailEvent extends EventObject {
-    /**
-     * Constructs a prototypical Event.
-     *
-     * @param actionListener
-     * @param source The object on which the Event initially occurred.
-     * @throws IllegalArgumentException if source is null.
-     */
     private ItemList itemList;
 
     public DetailEvent(Object source, Item i) throws IOException, MoneyException {
