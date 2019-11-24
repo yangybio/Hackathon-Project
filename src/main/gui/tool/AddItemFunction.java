@@ -27,6 +27,7 @@ public class AddItemFunction extends JPanel {
     private Item newItem;
     private ItemList itemList;
     JSpinner time;
+    private EventListenerList listenerList = new EventListenerList();
 
     public AddItemFunction() throws IOException, MoneyException {
         Dimension size = getPreferredSize();
@@ -137,7 +138,6 @@ public class AddItemFunction extends JPanel {
 
     public void fireAddItemEvent(DetailEvent event) {
         Object[] listeners = listenerList.getListenerList();
-
         for (int i = 0; i < listeners.length; i += 2) {
             if (listeners[i] == AddItemListener.class) {
                 ((AddItemListener) listeners[i + 1]).addItemOccurred(event);
@@ -145,8 +145,11 @@ public class AddItemFunction extends JPanel {
         }
     }
 
-    public void addDetailListener(AddItemListener addItemListener) {
-        this.listenerList.add(AddItemListener.class,addItemListener);
+    public void addDetailListener(AddItemListener listener) {
+        this.listenerList.add(AddItemListener.class, listener);
     }
 
+    public void removeListener(AddItemListener listener) {
+        this.listenerList.remove(AddItemListener.class, listener);
+    }
 }

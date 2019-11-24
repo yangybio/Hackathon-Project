@@ -65,7 +65,7 @@ public class YnabUser {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String date = dtf.format(now);
-        newItem = new DailyAddedItem(date, "RBC_Credit_Card", this.getCreditBalance());
+        newItem = new DailyAddedItem(date, "RBC_Card", this.getCreditBalance());
         return newItem;
     }
 }

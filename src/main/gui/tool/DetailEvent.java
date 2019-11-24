@@ -34,4 +34,8 @@ public class DetailEvent extends EventObject {
     public Item getNewAddItem() {
         return itemList.getItemList().get(itemList.size() - 1);
     }
+
+    public ItemList getItemList() {
+        return itemList;
+    }
 }
