@@ -1,15 +1,19 @@
 package gui;
 
-import gui.tool.OutputToText;
+import gui.tool.AddItemListener;
+import gui.tool.DetailEvent;
+import model.Item;
 import model.exception.MoneyException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.io.PrintStream;
+
 
 public class MainFrame extends JFrame {
     private FunctionPanel panel;
+    private DetailEvent clickOverview;
+    private JScrollPane scrollPane;
 
 
     public MainFrame(String name) throws IOException, MoneyException {
@@ -18,23 +22,48 @@ public class MainFrame extends JFrame {
         //set Layout
         setLayout(new BorderLayout());
 
+
         // Create Swing component
-        JTextArea textArea = new JTextArea(20,33);
-        OutputToText out = new OutputToText(textArea);
-        PrintStream printStream = new PrintStream(out);
-        PrintStream standardOut = System.out;
-        PrintStream standardErr = System.err;
-        System.setOut(printStream);
-        System.setErr(printStream);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Output window!"));
-
-
+        scrollPane = new JScrollPane();
+        JList list = new JList();
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scrollPane.setViewportView(list);
+//        JTextArea textArea = new JTextArea(20,33);
+//        OutputToText out = new OutputToText(textArea);
+//        PrintStream printStream = new PrintStream(out);
+//        PrintStream standardOut = System.out;
+//        PrintStream standardErr = System.err;
+//        System.setOut(printStream);
+//        System.setErr(printStream);
+//        JScrollPane scrollPane = new JScrollPane(textArea);
+//        scrollPane.setBorder(BorderFactory.createTitledBorder("Output window!"));
         panel = new FunctionPanel();
+
+        panel.addDetailListener(new AddItemListener() {
+            @Override
+            public void addItemOccurred(DetailEvent event) {
+                Item i = event.getNewAddItem();
+                Item[] data = new Item[1];
+                data[0] = i;
+                list.setListData(data);
+            }
+        });
+
+
 
         //add Swing component
         Container c = getContentPane();
         c.add(scrollPane, BorderLayout.EAST);
         c.add(panel,BorderLayout.WEST);
     }
+
+//    public void fireDetailEvent(DetailEvent event) {
+//        Object[] listeners = listenerList.getListenerList();
+//
+//        for (int i = 0; i < listeners.length; i += 2) {
+//            if (listeners[i] == DetailListener.class) {
+//                ((DetailListener) listeners[i + 1]).detailEventOccurred(event);
+//            }
+//        }
+//    }
 }

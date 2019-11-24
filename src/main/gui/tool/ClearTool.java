@@ -35,7 +35,6 @@ public class ClearTool extends Tool {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-
             }
         });
     }

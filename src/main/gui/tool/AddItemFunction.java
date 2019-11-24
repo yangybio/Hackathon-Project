@@ -6,6 +6,7 @@ import model.ItemList;
 import model.exception.MoneyException;
 
 import javax.swing.*;
+import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +33,7 @@ public class AddItemFunction extends JPanel {
         size.width = 400;
         size.height = 200;
         setPreferredSize(size);
-        setBorder(BorderFactory.createTitledBorder("Manage yoru expense!"));
+        setBorder(BorderFactory.createTitledBorder("Manage your expense!"));
         setDate();
         date = new JLabel("Date: ");
         money = new JLabel("Money: ");
@@ -85,12 +86,24 @@ public class AddItemFunction extends JPanel {
         addNewItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processItem();
+                Item output = null;
+                try {
+                    output = processItem();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    fireAddItemEvent(new DetailEvent(this, output));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (MoneyException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
 
-    public void processItem() {
+    public Item processItem() throws IOException {
         String name = nameField.getText();
         Date d = (Date) time.getValue();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -103,12 +116,7 @@ public class AddItemFunction extends JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        itemList.insert(newItem);
-        try {
-            itemList.record("savedFile.txt");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        return newItem;
     }
 
     public void setDate() {
@@ -126,4 +134,19 @@ public class AddItemFunction extends JPanel {
         time = new JSpinner(model);
         time.setEditor(new JSpinner.DateEditor(time, "yyyy-MM-dd"));
     }
+
+    public void fireAddItemEvent(DetailEvent event) {
+        Object[] listeners = listenerList.getListenerList();
+
+        for (int i = 0; i < listeners.length; i += 2) {
+            if (listeners[i] == AddItemListener.class) {
+                ((AddItemListener) listeners[i + 1]).addItemOccurred(event);
+            }
+        }
+    }
+
+    public void addDetailListener(AddItemListener addItemListener) {
+        this.listenerList.add(AddItemListener.class,addItemListener);
+    }
+
 }

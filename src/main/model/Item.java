@@ -23,9 +23,13 @@ public abstract class Item {
     }
 
     public Item(String date, String itemName, double m) {
-        this.date = date;
-        this.itemName = itemName;
-        this.money = m;
+        this.setDate(date);
+        this.setItemName(itemName);
+        try {
+            this.setMoney(m);
+        } catch (MoneyException e) {
+            System.out.printf("Negative Money!!");
+        }
     }
 
 
@@ -156,10 +160,10 @@ public abstract class Item {
     @SuppressWarnings("checkstyle:OperatorWrap")
     @Override
     public String toString() {
-        return "-->New expense for :\n"
-                + "Date= " + date + "\n"
-                + "Name= " + itemName + "\n"
-                + "Money= " + money
-                + "!\n";
+        return "-->"
+                + " Date= " + date + "  "
+                + " Name= " + itemName + "  "
+                + " Money= " + money
+                + "!";
     }
 }

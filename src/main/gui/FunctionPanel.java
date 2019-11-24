@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionPanel extends JPanel {
+    private AddItemFunction panel;
     private List<Tool> tools;
     private EventListenerList listenerList = new EventListenerList();
 
@@ -20,7 +21,7 @@ public class FunctionPanel extends JPanel {
         setPreferredSize(size);
         tools = new ArrayList<>();
 
-        AddItemFunction panel = new AddItemFunction();
+        panel = new AddItemFunction();
         setLayout(new BorderLayout());
         this.add(panel);
         JPanel function = new JPanel();
@@ -38,6 +39,11 @@ public class FunctionPanel extends JPanel {
         tools.add(tool1);
         tools.add(tool2);
         tools.add(tool3);
+    }
+
+    public void addDetailListener(AddItemListener addItemListener) {
+        this.listenerList.add(AddItemListener.class,addItemListener);
+        panel.addDetailListener(addItemListener);
     }
 }
 
