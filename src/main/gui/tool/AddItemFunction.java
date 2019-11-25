@@ -3,7 +3,6 @@ package gui.tool;
 import model.DailyAddedItem;
 import model.Item;
 import model.ItemList;
-import model.exception.MoneyException;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -17,8 +16,8 @@ import java.util.Date;
 
 
 public class AddItemFunction extends JPanel {
-    private JLabel date;
-    private JLabel money;
+    JLabel date;
+    JLabel money;
     String itemCate;
     JLabel itemName;
     JTextField dateField;
@@ -26,19 +25,33 @@ public class AddItemFunction extends JPanel {
     JTextField nameField;
     JLabel cateField;
     JButton addNewItem;
-    private Item newItem;
-    private ItemList itemList;
+    Item newItem;
+    ItemList itemList;
     JSpinner time;
-    private JComboBox category;
-    private EventListenerList listenerList = new EventListenerList();
+    JComboBox category;
+    Color lableColor = new Color(22, 133, 254);
+    Color textColor = new Color(233, 55, 40);
+    private Font lableFont = new Font("Roboto", Font.TRUETYPE_FONT, 14);
+    EventListenerList listenerList = new EventListenerList();
 
-    public AddItemFunction() throws IOException, MoneyException {
+    public AddItemFunction() {
         Dimension size = getPreferredSize();
         size.width = 400;
         size.height = 200;
         setPreferredSize(size);
         setBorder(BorderFactory.createTitledBorder("Manage your expense!"));
         setDate();
+        initial();
+        itemCate = "";
+        setLableColor();
+        setTextColor();
+        setLayout(new GridBagLayout());
+        setEverything();
+        setListener();
+    }
+
+    public void initial() {
+        String[] categories = {"FOOD", "GENERAL", "UTILITIES", "CREDIT", "HOUSING"};
         date = new JLabel("Date: ");
         money = new JLabel("Money: ");
         itemName = new JLabel("Name: ");
@@ -46,19 +59,41 @@ public class AddItemFunction extends JPanel {
         dateField = new JTextField(10);
         moneyField = new JTextField(10);
         nameField = new JTextField(10);
+        money.setFont(lableFont);
+        date.setFont(lableFont);
+        itemName.setFont(lableFont);
+        cateField.setFont(lableFont);
         addNewItem = new JButton("Add new item");
-        String[] categories = {"FOOD", "GENERAL", "UTILITIES", "CREDIT", "HOUSING"};
-        itemCate = "";
+        addNewItem.setForeground(new Color(233, 157, 104));
+        addNewItem.setFont(lableFont);
         category = new JComboBox(categories);
         category.setEditable(true);
-        setLayout(new GridBagLayout());
-        setEverything();
-        setListener();
+    }
+
+    public void setTextColor() {
+        moneyField.setForeground(textColor);
+        nameField.setForeground(textColor);
+        dateField.setForeground(textColor);
+    }
+
+    public void setLableColor() {
+        date.setForeground(lableColor);
+        money.setForeground(lableColor);
+        itemName.setForeground(lableColor);
+        cateField.setForeground(lableColor);
     }
 
     public void setLable() {
+        setBasicItem();
         GridBagConstraints gc = new GridBagConstraints();
-        gc.weighty = 1;
+        gc.weighty = 2;
+        gc.gridx = 0;
+        gc.gridy = 5;
+    }
+
+    public void setBasicItem() {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.weighty = 2;
         gc.gridx = 0;
         gc.gridy = 1;
         add(itemName, gc);
@@ -75,9 +110,9 @@ public class AddItemFunction extends JPanel {
         add(cateField, gc);
     }
 
-    public void setEverything() {
-        setLable();
+    public void setBasicField() {
         GridBagConstraints gc = new GridBagConstraints();
+        gc.weighty = 2;
         gc.gridx = 1;
         gc.gridy = 1;
         add(nameField, gc);
@@ -90,6 +125,14 @@ public class AddItemFunction extends JPanel {
         gc.gridx = 1;
         gc.gridy = 4;
         add(category, gc);
+
+    }
+
+    public void setEverything() {
+        setLable();
+        setBasicField();
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.weighty = 2;
         gc.weighty = 10;
         gc.gridx = 1;
         gc.gridy = 5;

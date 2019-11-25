@@ -19,6 +19,7 @@ import java.io.IOException;
 public class MainFrame extends JFrame {
     private FunctionPanel panel;
     private JScrollPane scrollPane;
+    private Font lableFont = new Font("Roboto", Font.PLAIN, 14);
 
 
     public MainFrame(String name) throws IOException, MoneyException {
@@ -38,20 +39,15 @@ public class MainFrame extends JFrame {
         Dimension size = getPreferredSize();
         size.width = 500;
         scrollPane.setPreferredSize(size);
-//        JTextArea textArea = new JTextArea(20,33);
-//        OutputToText out = new OutputToText(textArea);
-//        PrintStream printStream = new PrintStream(out);
-//        PrintStream standardOut = System.out;
-//        PrintStream standardErr = System.err;
-//        System.setOut(printStream);
-//        System.setErr(printStream);
-//        JScrollPane scrollPane = new JScrollPane(textArea);
-//        scrollPane.setBorder(BorderFactory.createTitledBorder("Output window!"));
         panel = new FunctionPanel();
         AddItemFunction itemPanel = new AddItemFunction();
         panel.add(itemPanel);
         panel.function.add(importBt);
         panel.function.add(deleteBt);
+        importBt.setForeground(new Color(120, 221, 176));
+        importBt.setFont(lableFont);
+        deleteBt.setForeground(new Color(120, 221, 176));
+        deleteBt.setFont(lableFont);
 
         itemPanel.addDetailListener(new AddItemListener() {
             @Override

@@ -15,10 +15,10 @@ import java.io.IOException;
 public class FunctionPanel extends JPanel {
     private JButton overviewBt;
     private JButton clearBt;
-    private JButton importBt;
     private ProcessMoney process;
     public JPanel function;
     public EventListenerList listenerList = new EventListenerList();
+    private Font lableFont = new Font("Roboto", Font.PLAIN, 14);
 
     public FunctionPanel() throws IOException, MoneyException {
         Dimension size = getPreferredSize();
@@ -35,8 +35,12 @@ public class FunctionPanel extends JPanel {
 
     public void initialTools(JPanel p) {
         initialOverview();
+        overviewBt.setForeground(new Color(120, 221, 176));
+        overviewBt.setFont(lableFont);
         p.add(overviewBt);
         initialClear();
+        clearBt.setForeground(new Color(120, 221, 176));
+        clearBt.setFont(lableFont);
         p.add(clearBt);
     }
 
