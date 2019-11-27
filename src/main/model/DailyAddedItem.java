@@ -25,6 +25,8 @@ public class DailyAddedItem extends Item {
         this.itemName = name;
     }
 
+    //MODIFIES:This
+    //EFFECT: return the month of next pay
     @Override
     public String nextMonthPay() throws ParseException {
         return "";

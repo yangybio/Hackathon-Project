@@ -14,6 +14,7 @@ public class PresentSummary {
         summary.getData("savedFile.txt");
     }
 
+    //EFFECT: present the money record so far
     public void presentMoney() {
         presentTotalMoney();
         presentSummary();

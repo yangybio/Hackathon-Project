@@ -19,11 +19,14 @@ public class MonthlyItem extends Item {
         state = 1;
     }
 
+    //MODIFIES:this
+    //EFFECT: set the item name
     @Override
     public void setItemName(String name) {
         this.itemName = name + "_Paid_Monthly.";
     }
 
+    //EFFECT: return the date of next pay
     @Override
     public String nextMonthPay() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

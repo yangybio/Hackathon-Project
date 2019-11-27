@@ -16,22 +16,14 @@ public class ProcessMoney {
     private double money;
     public Scanner scanner = new Scanner(System.in);
     private ItemList summary;
-//    private SameNameHashMap sameNameList;
-//    private TimeTracker monthList;
 
     //MODIFIES:This
     //EFFECT: Initialize the Money
     public ProcessMoney() throws IOException, MoneyException {
         summary = new ItemList();
         summary.getData("savedFile.txt");
-//        money = summary.getTotalMoney();
     }
 
-//    //MODIFIES:This
-//    //EFFECT: Set the money
-//    public void setMoney(double m) {
-//        money = m + money;
-//    }
     //MODIFIES:This and newItem
     //EFFECT: Record the date, money and category for newItem
     public void processMoney() throws IOException, ParseException, MoneyException {
@@ -48,7 +40,7 @@ public class ProcessMoney {
         }
     }
 
-    public void process(Item newItem) {
+    private void process(Item newItem) {
         enterDate(newItem);
         System.out.println("Please enter the money you spent at " + newItem.getDate());
         while (true) {
@@ -67,14 +59,14 @@ public class ProcessMoney {
         newItem.setItemName(scanner.nextLine());
     }
 
-    public void processDItem() throws IOException {
+    private void processDItem() throws IOException {
         Item newDailyAddedItem = new DailyAddedItem();
         process(newDailyAddedItem);
         summary.insert(newDailyAddedItem);
         summary.record("savedFile.txt");
     }
 
-    public void processMItem(int times) throws IOException, ParseException, MoneyException {
+    private void processMItem(int times) throws IOException, ParseException, MoneyException {
         Item newMItem = new MonthlyItem();
         process(newMItem);
         for (int i = 0; i < times; i++) {
@@ -86,7 +78,7 @@ public class ProcessMoney {
         summary.record("savedFile.txt");
     }
 
-    public void enterDate(Item newAddedItem) {
+    private void enterDate(Item newAddedItem) {
         System.out.println("Please enter the date you spent the money(yyyy-mm-dd):");
         while (true) {
             String time = scanner.nextLine();
@@ -103,10 +95,13 @@ public class ProcessMoney {
         }
     }
 
+    //EFFECT: clear the data in "savedFile"
     public void clear() throws IOException {
         summary.clearData("savedFile.txt");
     }
 
+    //MODIFIES:this
+    //EFFECT: add new Card balance item
     public void addRBCardBalance() throws MoneyException, IOException {
         YnabUser user = new YnabUser();
         Item newItem = user.newCreditItem();

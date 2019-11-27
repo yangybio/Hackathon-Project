@@ -53,6 +53,8 @@ public abstract class Item {
     //EFFECT: Set the name of the item
     public abstract void setItemName(String name);
 
+    //MODIFIES:This
+    //EFFECT: Set the payTo of the item
     public void setPayTo(PayCategory pay) {
         if (!(payTo == pay)) {
             if (!(payTo == null)) {
@@ -63,6 +65,8 @@ public abstract class Item {
         pay.addItem(this);
     }
 
+    //MODIFIES:This
+    //EFFECT: remove the payTo of the item
     public void removePayMethod() {
         if (!(payTo == null)) {
             payTo.removeItem(this);
@@ -70,6 +74,8 @@ public abstract class Item {
         }
     }
 
+    //MODIFIES:This
+    //EFFECT: Set the payTo of the item
     public void toPayMethod(String s) {
         payTo = new PayCategory();
         if (s.equals("FOOD")) {
@@ -89,12 +95,12 @@ public abstract class Item {
         }
     }
 
+    //EFFECT: return the payTo of the item
     public PayCategory getPayTo() {
         return payTo;
     }
 
     //EFFECT: Return the Money of the item
-
     public double getMoney() {
         return money;
     }
@@ -102,7 +108,6 @@ public abstract class Item {
     //REQUIRES: recordNumber is larger than 0
     //MODIFIES:This
     //EFFECT: Set the money of the item
-
     public void setMoney(double recordNumber) throws MoneyException {
         if (recordNumber <= 0.0) {
             throw new MoneyException("Negative Money!!");
@@ -111,11 +116,13 @@ public abstract class Item {
         }
     }
 
+    //EFFECT: return the string
     public String itemToString() {
         String recordString = payTo.getString() + " " + date + " " + itemName + " " + Double.toString(money);
         return recordString;
     }
 
+    //EFFECT: return true if date is valid; false otherwise
     public boolean checkValidDate(String time) throws TimeFormException {
         Date d = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -128,13 +135,10 @@ public abstract class Item {
         }
     }
 
+    //EFFECT: return the date of next month pay
     public abstract String nextMonthPay() throws ParseException;
 
-    public String getMonth() {
-        String month = date.substring(0, 7);
-        return month;
-    }
-
+    //EFFECT: redefine equal
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -152,9 +156,6 @@ public abstract class Item {
         return Objects.hash(itemName);
     }
 
-    public void update() {
-        System.out.println("Total money changed!");
-    }
 
     @SuppressWarnings("checkstyle:OperatorWrap")
     @Override

@@ -24,7 +24,7 @@ public class YnabUser {
         accountID = "b79ebeeb-6981-49e0-b020-2cef9ffb779d";
     }
 
-    public double getCreditBalance() {
+    private double getCreditBalance() {
         double money = 0.0;
         ApiClient user = Configuration.getDefaultApiClient();
         ApiKeyAuth bearer = (ApiKeyAuth) user.getAuthentication("bearer");
@@ -60,6 +60,7 @@ public class YnabUser {
         return money;
     }
 
+    //EFFECT: return new credit balance Item
     public Item newCreditItem() {
         Item newItem;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

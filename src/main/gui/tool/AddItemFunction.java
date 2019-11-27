@@ -9,11 +9,9 @@ import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 
 public class AddItemFunction extends JPanel {
     JLabel date;
@@ -48,9 +46,10 @@ public class AddItemFunction extends JPanel {
         setLayout(new GridBagLayout());
         setEverything();
         setListener();
+        newItem = null;
     }
 
-    public void initial() {
+    private void initial() {
         String[] categories = {"FOOD", "GENERAL", "UTILITIES", "CREDIT", "HOUSING"};
         date = new JLabel("Date: ");
         money = new JLabel("Money: ");
@@ -70,20 +69,20 @@ public class AddItemFunction extends JPanel {
         category.setEditable(true);
     }
 
-    public void setTextColor() {
+    private void setTextColor() {
         moneyField.setForeground(textColor);
         nameField.setForeground(textColor);
         dateField.setForeground(textColor);
     }
 
-    public void setLableColor() {
+    private void setLableColor() {
         date.setForeground(lableColor);
         money.setForeground(lableColor);
         itemName.setForeground(lableColor);
         cateField.setForeground(lableColor);
     }
 
-    public void setLable() {
+    private void setLable() {
         setBasicItem();
         GridBagConstraints gc = new GridBagConstraints();
         gc.weighty = 2;
@@ -91,7 +90,7 @@ public class AddItemFunction extends JPanel {
         gc.gridy = 5;
     }
 
-    public void setBasicItem() {
+    private void setBasicItem() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.weighty = 2;
         gc.gridx = 0;
@@ -110,7 +109,7 @@ public class AddItemFunction extends JPanel {
         add(cateField, gc);
     }
 
-    public void setBasicField() {
+    private void setBasicField() {
         GridBagConstraints gc = new GridBagConstraints();
         gc.weighty = 2;
         gc.gridx = 1;
@@ -128,7 +127,7 @@ public class AddItemFunction extends JPanel {
 
     }
 
-    public void setEverything() {
+    private void setEverything() {
         setLable();
         setBasicField();
         GridBagConstraints gc = new GridBagConstraints();
@@ -139,15 +138,13 @@ public class AddItemFunction extends JPanel {
         add(addNewItem, gc);
     }
 
-    public void setListener() {
+    private void setListener() {
         addNewItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Item output = null;
-                try {
-                    output = processItem();
+                output = processItem();
+                if (!(output == null)) {
                     fireAddItemEvent(new DetailEvent(this, output));
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
             }
         });
@@ -160,28 +157,47 @@ public class AddItemFunction extends JPanel {
         });
     }
 
-    public void updateCate(String cate) {
+    private void updateCate(String cate) {
         itemCate = cate;
     }
 
-    public Item processItem() throws IOException {
+    private Item processItem() {
         String name = nameField.getText();
-        Date d = (Date) time.getValue();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date = sdf.format(d);
+        String date = parseDate();
         double money = Double.parseDouble(moneyField.getText());
-        newItem = new DailyAddedItem(date,name,money);
-        newItem.toPayMethod(itemCate);
-        try {
-            itemList = new ItemList();
-            itemList.getData("savedFile.txt");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if (money < 0) {
+            dealMoney();
+        } else {
+            newItem = new DailyAddedItem(date, name, money);
+            newItem.toPayMethod(itemCate);
+            try {
+                itemList = new ItemList();
+                itemList.getData("savedFile.txt");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         return newItem;
     }
 
-    public void setDate() {
+    private String parseDate() {
+        Date d = (Date) time.getValue();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(d);
+        return date;
+    }
+
+    private void dealMoney() {
+        JFrame error = new JFrame("Error");
+        error.setSize(300, 200);
+        JLabel errorlable = new JLabel("Negative money!!");
+        errorlable.setForeground(new Color(233, 42, 30));
+        errorlable.setFont(new Font("Roboto", Font.TRUETYPE_FONT, 24));
+        error.add(errorlable,BorderLayout.CENTER);
+        error.setVisible(true);
+    }
+
+    private void setDate() {
         SpinnerModel model;
         Calendar calendar = Calendar.getInstance();
         Date initDate = calendar.getTime();
@@ -197,7 +213,7 @@ public class AddItemFunction extends JPanel {
         time.setEditor(new JSpinner.DateEditor(time, "yyyy-MM-dd"));
     }
 
-    public void fireAddItemEvent(DetailEvent event) {
+    private void fireAddItemEvent(DetailEvent event) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i < listeners.length; i += 2) {
             if (listeners[i] == AddItemListener.class) {

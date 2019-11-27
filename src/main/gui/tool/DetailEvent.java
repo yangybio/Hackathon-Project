@@ -10,18 +10,30 @@ import java.util.EventObject;
 public class DetailEvent extends EventObject {
     private ItemList itemList;
 
-    public DetailEvent(Object source, Item i) throws IOException, MoneyException {
+    public DetailEvent(Object source, Item i)  {
         super(source);
         itemList = new ItemList();
-        itemList.getData("savedFile.txt");
-        itemList.insert(i);
-        itemList.record("savedFile.txt");
+        try {
+            itemList.getData("savedFile.txt");
+            itemList.insert(i);
+            itemList.record("savedFile.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (MoneyException e) {
+            e.printStackTrace();
+        }
     }
 
-    public DetailEvent(Object source) throws IOException, MoneyException {
+    public DetailEvent(Object source) {
         super(source);
         itemList = new ItemList();
-        itemList.getData("savedFile.txt");
+        try {
+            itemList.getData("savedFile.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (MoneyException e) {
+            e.printStackTrace();
+        }
     }
 
     public Item getNewAddItem() {

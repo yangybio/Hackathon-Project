@@ -10,6 +10,8 @@ public class SameNameHashMap {
         itemMap = new HashMap<Item, ItemList>();
     }
 
+    //MODIFIES:this
+    //EFFECT: add new Item to itemMap
     public void addItem(Item newItem) {
         if (!itemMap.containsKey(newItem)) {
             ItemList newItemList = new ItemList();
@@ -21,6 +23,7 @@ public class SameNameHashMap {
         }
     }
 
+    //EFFECT: return item List
     public ItemList getList(Item i) {
         return itemMap.get(i);
     }

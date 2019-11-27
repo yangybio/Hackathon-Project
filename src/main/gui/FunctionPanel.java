@@ -4,7 +4,6 @@ import gui.tool.DetailEvent;
 import gui.tool.OverviewListener;
 import model.exception.MoneyException;
 import ui.ProcessMoney;
-
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
@@ -33,7 +32,7 @@ public class FunctionPanel extends JPanel {
         this.add(function, BorderLayout.SOUTH);
     }
 
-    public void initialTools(JPanel p) {
+    private void initialTools(JPanel p) {
         initialOverview();
         overviewBt.setForeground(new Color(120, 221, 176));
         overviewBt.setFont(lableFont);
@@ -51,9 +50,7 @@ public class FunctionPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     fireOverviewEvent(new DetailEvent(this));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (MoneyException ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -81,7 +78,7 @@ public class FunctionPanel extends JPanel {
         this.listenerList.add(OverviewListener.class, listener);
     }
 
-    public void fireOverviewEvent(DetailEvent event) {
+    private void fireOverviewEvent(DetailEvent event) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i < listeners.length; i += 2) {
             if (listeners[i] == OverviewListener.class) {
