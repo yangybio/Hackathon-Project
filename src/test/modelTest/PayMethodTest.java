@@ -29,6 +29,18 @@ public class PayMethodTest {
     }
 
     @Test
+    public void testGetString(){
+        assertEquals("FOOD",testPay.getString());
+        testPay.setCategory(PayCategory.Category.CREDIT);
+        assertEquals("CREDIT",testPay.getString());
+        testPay.setCategory(PayCategory.Category.GENERAL);
+        assertEquals("GENERAL",testPay.getString());
+        testPay.setCategory(PayCategory.Category.UTILITIES);
+        assertEquals("UTILITIES",testPay.getString());
+        testPay.setCategory(PayCategory.Category.HOUSING);
+        assertEquals("HOUSING",testPay.getString());
+    }
+    @Test
     public void testAddNewDifferentItem() {
 
         assertEquals(0, testPay.getList().size());
