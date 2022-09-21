@@ -1,93 +1,77 @@
 package gui.tool;
 
-import model.DailyAddedItem;
-import model.Item;
-import model.ItemList;
+
+import gui.tool.dataRequire.APIHandler;
+import gui.tool.dataRequire.OverallResult;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddItemFunction extends JPanel {
+public class UpperLeftPanel extends JPanel {
     JLabel date;
-    JLabel money;
+    JButton meme;
+    JLabel area;
     String itemCate;
-    JLabel itemName;
     JTextField dateField;
-    JTextField moneyField;
-    JTextField nameField;
+    JComboBox areaField;
     JLabel cateField;
-    JButton addNewItem;
-    Item newItem;
-    ItemList itemList;
+    JButton getInfo;
     JSpinner time;
     JComboBox category;
-    Color lableColor = new Color(22, 133, 254);
-    Color textColor = new Color(233, 55, 40);
     private Font lableFont = new Font("Roboto", Font.TRUETYPE_FONT, 14);
     EventListenerList listenerList = new EventListenerList();
 
-    public AddItemFunction() {
+    public UpperLeftPanel() {
         Dimension size = getPreferredSize();
         size.width = 400;
         size.height = 200;
         setPreferredSize(size);
-        setBorder(BorderFactory.createTitledBorder("Manage your expense!"));
+        setBorder(BorderFactory.createTitledBorder("Coronavirus Historical Data !!"));
         setDate();
         initial();
         itemCate = "";
-        setLableColor();
-        setTextColor();
         setLayout(new GridBagLayout());
         setEverything();
         setListener();
-        newItem = null;
     }
 
     private void initial() {
-        String[] categories = {"FOOD", "GENERAL", "UTILITIES", "CREDIT", "HOUSING"};
+        String[] categories = {"Confirmed Cases", "Suspected Cases", "Deaths", "Cured"};
+        String[] areaCat = {"Overall","Wuhan","Northeast","Northwest","Southeast","Southwest"};
         date = new JLabel("Date: ");
-        money = new JLabel("Money: ");
-        itemName = new JLabel("Name: ");
+        area = new JLabel("Area: ");
+        meme = new JButton(new ImageIcon("/Users/apple/IdeaProjects/hackathon/corona.png"));
         cateField = new JLabel("Category: ");
         dateField = new JTextField(10);
-        moneyField = new JTextField(10);
-        nameField = new JTextField(10);
-        money.setFont(lableFont);
+        areaField = new JComboBox(areaCat);
+        area.setFont(lableFont);
         date.setFont(lableFont);
-        itemName.setFont(lableFont);
         cateField.setFont(lableFont);
-        addNewItem = new JButton("Add new item");
-        addNewItem.setForeground(new Color(233, 157, 104));
-        addNewItem.setFont(lableFont);
+        getInfo = new JButton("Search for ...");
+        getInfo.setForeground(new Color(233, 63, 51));
+        getInfo.setFont(lableFont);
         category = new JComboBox(categories);
-        category.setEditable(true);
+//        category.setEditable(true);
     }
 
-    private void setTextColor() {
-        moneyField.setForeground(textColor);
-        nameField.setForeground(textColor);
-        dateField.setForeground(textColor);
-    }
 
-    private void setLableColor() {
-        date.setForeground(lableColor);
-        money.setForeground(lableColor);
-        itemName.setForeground(lableColor);
-        cateField.setForeground(lableColor);
-    }
+
 
     private void setLable() {
         setBasicItem();
         GridBagConstraints gc = new GridBagConstraints();
         gc.weighty = 2;
         gc.gridx = 0;
-        gc.gridy = 5;
+        gc.gridy = 4;
     }
 
     private void setBasicItem() {
@@ -95,17 +79,14 @@ public class AddItemFunction extends JPanel {
         gc.weighty = 2;
         gc.gridx = 0;
         gc.gridy = 1;
-        add(itemName, gc);
+        add(date, gc);
         gc.gridx = 2;
         gc.gridy = 2;
         gc.gridx = 0;
         gc.gridy = 2;
-        add(date, gc);
+        add(area, gc);
         gc.gridx = 0;
         gc.gridy = 3;
-        add(money, gc);
-        gc.gridx = 0;
-        gc.gridy = 4;
         add(cateField, gc);
     }
 
@@ -114,17 +95,13 @@ public class AddItemFunction extends JPanel {
         gc.weighty = 2;
         gc.gridx = 1;
         gc.gridy = 1;
-        add(nameField, gc);
-        gc.gridx = 1;
-        gc.gridy = 2;
         add(time, gc);
         gc.gridx = 1;
-        gc.gridy = 3;
-        add(moneyField, gc);
+        gc.gridy = 2;
+        add(areaField, gc);
         gc.gridx = 1;
-        gc.gridy = 4;
+        gc.gridy = 3;
         add(category, gc);
-
     }
 
     private void setEverything() {
@@ -135,16 +112,32 @@ public class AddItemFunction extends JPanel {
         gc.weighty = 10;
         gc.gridx = 1;
         gc.gridy = 5;
-        add(addNewItem, gc);
+        add(getInfo, gc);
+        gc.gridx = 2;
+        gc.gridy = 5;
+        add(meme,gc);
     }
 
     private void setListener() {
-        addNewItem.addActionListener(new ActionListener() {
+        getInfo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Item output = null;
-                output = processItem();
-                if (!(output == null)) {
-                    fireAddItemEvent(new DetailEvent(this, output));
+                String askDate = parseDate();
+                APIHandler API = new APIHandler();
+                OverallResult overall = null;
+                try {
+                    overall = API.getOverallResult();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+//                    todo robust
+                }
+                Date d1 = new Date();
+                ArrayList<Date> a1 = null;
+
+                try {
+                    String cri = (String) category.getSelectedItem();
+                    fireGetResultEvent(new DetailEvent(this, overall,cri,askDate));
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
                 }
             }
         });
@@ -155,30 +148,22 @@ public class AddItemFunction extends JPanel {
                 updateCate(cate);
             }
         });
+        meme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame memeFrame = new JFrame();
+                JLabel memeLable = new JLabel(new ImageIcon("/Users/apple/IdeaProjects/hackathon/meme.jpg"));
+                memeFrame.add(memeLable);
+                memeFrame.setSize(1000,520);
+                memeFrame.setVisible(true);
+            }
+        });
     }
 
     private void updateCate(String cate) {
         itemCate = cate;
     }
 
-    private Item processItem() {
-        String name = nameField.getText();
-        String date = parseDate();
-        double money = Double.parseDouble(moneyField.getText());
-        if (money < 0) {
-            dealMoney();
-        } else {
-            newItem = new DailyAddedItem(date, name, money);
-            newItem.toPayMethod(itemCate);
-            try {
-                itemList = new ItemList();
-                itemList.getData("savedFile.txt");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        return newItem;
-    }
 
     private String parseDate() {
         Date d = (Date) time.getValue();
@@ -187,15 +172,6 @@ public class AddItemFunction extends JPanel {
         return date;
     }
 
-    private void dealMoney() {
-        JFrame error = new JFrame("Error");
-        error.setSize(300, 200);
-        JLabel errorlable = new JLabel("Negative money!!");
-        errorlable.setForeground(new Color(233, 42, 30));
-        errorlable.setFont(new Font("Roboto", Font.TRUETYPE_FONT, 24));
-        error.add(errorlable,BorderLayout.CENTER);
-        error.setVisible(true);
-    }
 
     private void setDate() {
         SpinnerModel model;
@@ -213,20 +189,16 @@ public class AddItemFunction extends JPanel {
         time.setEditor(new JSpinner.DateEditor(time, "yyyy-MM-dd"));
     }
 
-    private void fireAddItemEvent(DetailEvent event) {
+    private void fireGetResultEvent(DetailEvent event) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i < listeners.length; i += 2) {
-            if (listeners[i] == AddItemListener.class) {
-                ((AddItemListener) listeners[i + 1]).addItemOccurred(event);
+            if (listeners[i] == GetResultListener.class) {
+                ((GetResultListener) listeners[i + 1]).getResult(event);
             }
         }
     }
 
-    public void addDetailListener(AddItemListener listener) {
-        this.listenerList.add(AddItemListener.class, listener);
-    }
-
-    public void removeListener(AddItemListener listener) {
-        this.listenerList.remove(AddItemListener.class, listener);
+    public void addDetailListener(GetResultListener listener) {
+        this.listenerList.add(GetResultListener.class, listener);
     }
 }

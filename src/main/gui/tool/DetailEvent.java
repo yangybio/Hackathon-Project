@@ -1,46 +1,37 @@
 package gui.tool;
 
-import model.Item;
-import model.ItemList;
-import model.exception.MoneyException;
+import gui.tool.dataRequire.OverallResult;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.EventObject;
 
 public class DetailEvent extends EventObject {
-    private ItemList itemList;
+    OverallResult overallResult;
+    String ss;
+    ArrayList<Date> days;
 
-    public DetailEvent(Object source, Item i)  {
+    public DetailEvent(Object source, OverallResult overallResult,String s,String day) throws ParseException {
         super(source);
-        itemList = new ItemList();
-        try {
-            itemList.getData("savedFile.txt");
-            itemList.insert(i);
-            itemList.record("savedFile.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (MoneyException e) {
-            e.printStackTrace();
-        }
+        this.overallResult = overallResult;
+        ss = s;
+        days = overallResult.getDateRange(day);
     }
 
-    public DetailEvent(Object source) {
-        super(source);
-        itemList = new ItemList();
-        try {
-            itemList.getData("savedFile.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (MoneyException e) {
-            e.printStackTrace();
-        }
+    public String getData() {
+        System.out.println("reach hear get data");
+        String result1 = "Wuhan:        " + overallResult.collectRegionalData("Wuhan",ss,days);
+        String result2 = "SouthWest:    " + overallResult.collectRegionalData("SouthWest",ss,days);
+        String result3 = "SouthEast:    " + overallResult.collectRegionalData("SouthEast",ss,days);
+        String result4 = "NorthWest:    " + overallResult.collectRegionalData("NorthWest",ss,days);
+        String result5 = "NorthEast:    " + overallResult.collectRegionalData("NorthEast",ss,days);
+        return result1 + "\n" + result2 + "\n" + result3 + "\n" + result4 + "\n" + result5;
     }
 
-    public Item getNewAddItem() {
-        return itemList.getItemList().get(itemList.size() - 1);
-    }
-
-    public ItemList getItemList() {
-        return itemList;
+    public void getItemList(){
+        //stub
     }
 }
